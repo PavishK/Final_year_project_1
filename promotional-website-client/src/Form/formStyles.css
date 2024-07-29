@@ -1,0 +1,252 @@
+body{
+    margin: 0;
+    padding: 0;
+    background-color: #DDD0C8;
+    color:#323232; 
+     
+}
+body::-webkit-scrollbar{
+    display: none;
+}
+
+            /* ---------------------------- Login --------------------------------*/
+
+.login-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    margin-top: 10vh;
+    
+}
+
+.login-item{
+    border-radius: 11px;
+    padding: 30px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+}
+
+.item label{
+    padding: 8px;
+    margin-top: 8px;
+    color: black;
+}
+.login-input{
+    caret-color:#2C2C2C;
+    border-color: #e4e2e2;
+    padding: 8px;
+    border-radius: 6px;
+    font-size: medium;
+    width: 230px;
+    height: 25px;
+    margin: 10px;
+    background-color: #DDD0C8;
+}
+
+.login-btn{
+    font-size: medium;
+    border-radius: 6px;
+    width: 249px;
+    background-color: #2C2C2C;
+    color: #DDD0C8;
+    font-weight: bold;
+    padding: 5px;
+    position: relative;
+    overflow: hidden;
+    margin: 10px;
+    z-index: 1;
+
+}
+
+.login-btn::before{
+    content: '';
+    color: #2C2C2C;
+    width: 0;
+    height: 3rem;
+    border-radius: 6px;
+    position: absolute;
+    top: 0;left: 0;
+    background-image: linear-gradient(to right,#DDD0C8 50%,#DDD0C8 50%);
+    display: block;
+    transition: .5s ease-in-out;
+    z-index: -1;
+
+}
+
+.login-btn:hover::before {
+    width: 249px; 
+}
+.login-btn:hover {
+    color: #323232;
+}
+
+.goto-page{
+    font-size: medium;
+    padding: 8px;
+    margin-left: 1.2px;
+}
+.goto-page u{
+    color: blue;
+    text-decoration: none;
+    cursor: pointer;
+    transition: .5 ease-in-out;
+}
+.goto-page u:hover{
+    color:rgb(90, 90, 247);
+}
+
+.image-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-container img{
+    width: 18%;
+    padding: 2px;
+    margin-left: 12px;
+    
+}
+
+        /* ---------------------------- Register --------------------------------*/
+
+.register-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    margin-top: 5vh;
+    
+}
+
+.register-item{
+   
+    border-radius: 11px;
+    padding: 30px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+}
+
+.item label{
+    padding: 8px;
+    margin-top: 8px;
+    color: black;
+}
+.register-input{
+    caret-color:#2C2C2C;
+    border-color: #e4e2e2;
+    padding: 8px;
+    border-radius: 6px;
+    font-size: medium;
+    width: 230px;
+    height: 25px;
+    margin: 10px;
+    background-color: #DDD0C8;
+}
+
+.register-btn{
+    font-size: medium;
+    border-radius: 6px;
+    width: 249px;
+    background-color: #2C2C2C;
+    color: #DDD0C8;
+    font-weight: bold;
+    padding: 5px;
+    position: relative;
+    overflow: hidden;
+    margin: 10px;
+    z-index: 1;
+
+}
+
+.register-btn::before{
+    content: '';
+    color: #2C2C2C;
+    width: 0;
+    height: 3rem;
+    border-radius: 6px;
+    position: absolute;
+    top: 0;left: 0;
+    background-image: linear-gradient(to right,#DDD0C8 80%,#DDD0C8 50%);
+    display: block;
+    transition: .5s ease-in-out;
+    z-index: -1;
+
+}
+.register-btn:hover::before{
+    width: 249px;  
+}
+.register-btn:hover{
+   color: #323232; 
+}
+.register-goto-page{
+    font-size: medium;
+    padding: 8px;
+    margin-left: 1.2px;
+}
+.register-goto-page u{
+    color: blue;
+    text-decoration: none;
+    cursor: pointer;
+    transition: .5 ease-in-out;
+}
+.register-goto-page u:hover{
+    color:rgb(90, 90, 247);
+}
+
+.register-image-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.register-image-container img{
+    width: 18%;
+    padding-top: 2px;
+    margin-left: 12px;
+    
+}
+
+            /*-------------------------- Form Container-------------------------*/
+@media only screen and (max-width:50em) {
+
+    .form-container,.signup-link,.signin-link,.active-touch{
+        display: none;
+    }
+
+}
+
+.form-container{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: transparent;
+    padding: 8px;
+    margin: 10px 30% 20px 30%;
+}
+
+
+.signup-link,.signin-link{
+    background-color: #2C2C2C;
+    color: #DDD0C8;
+    text-decoration: none;
+    font-size: large;
+    font-weight: 600;
+    padding: 10px 40px;
+    border: 2px solid #323232;
+    border-radius: 30vh;
+    transition: .5s ease-in-out;  
+}
+
+
+.active-touch{
+    background-color: transparent ;
+    color: #323232;
+    text-decoration: none;
+    font-size: large;
+    font-weight: 600;
+    padding: 10px 40px;
+    border: 2px solid #323232;
+    border-radius: 30vh;
+    transition: .5s ease-in-out; 
+}
+
