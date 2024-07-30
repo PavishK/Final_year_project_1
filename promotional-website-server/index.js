@@ -1,17 +1,40 @@
-const express=require("express");
-const cors=require('cors');
-const app=express();
-const Router=require('./Router/Signup_Signin');
+const express = require("express");
+const dotenv = require("dotenv");
+const { default: mongoose } = require("mongoose");
+const app = express();
+const cors = require("cors");
+const { notFound, errorHandler } = require("./middleware/errorMiddleware");
 
-app.use(cors({
-    origin:"http://localhost:5173",
-    methods:["GET","POST"],
-}))
+app.use(
+  cors({
+    origin: "*",
+  })
+);
+dotenv.config();
 
-require('./db');
 app.use(express.json());
-app.use("/",Router);
 
-app.listen(process.env.PORT || 8080,()=>{
-    console.log("Server running at http://localhost:8080.");
-})
+const userRoutes = require("./Routes/userRoutes");
+
+const connectDb = async () => {
+  try {
+    const connect = await mongoose.connect(process.env.MONGO_URI);
+    console.log("Server is Connected to Database");
+  } catch (err) {
+    console.log("Server is NOT connected to Database", err.message);
+  }
+};
+connectDb();
+
+app.get("/", (req, res) => {
+  res.send("API is running123");
+});
+
+app.use("/user", userRoutes);
+
+// Error Handling middlewares
+app.use(notFound);
+app.use(errorHandler);
+
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, console.log("Server is Running..."));

@@ -1,17 +1,14 @@
-import React from 'react';
-import Login from './Form/Login';
-import Register from './Form/Register';
-import FormContainer from './Form/FormContainer';
-import SelectActor from './Pages/SelectActor';
+import React from 'react'
+import { Route, Routes } from "react-router-dom";
+import Login from './Form/Form';
+import './App.css';
 
 function App() {
   return (
-    <div>
-    {/* <FormContainer/> */}
-    {/* <Login/> */}
-    {/* <Register/> */}
-    <SelectActor/>
-
+    <div className="App">
+      <Routes>
+        <Route path="/" element={<Login />} />
+      </Routes>
     </div>
   )
 }
