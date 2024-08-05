@@ -1,6 +1,28 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 
+
+
+@media only screen and (max-width:65rem){
+  .image-container{
+    display: none !important;
+  }
+  .login-box{
+    flex:1 !important ;
+  }
+  .welcome-logo-maxwidth{
+    display: block !important;
+    margin: -5rem 0 0 0 !important;
+  }
+
+
+}
+
+.welcome-logo-maxwidth{
+  width: 90%;
+  display: none;
+}
+
 .login-container {
     height: 90vh;
     width: 80vw;
@@ -10,19 +32,23 @@
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   }
   
+
   .image-container {
     flex: 0.5;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-image: url("./images/Login.jpg");
-    background-size: contain;
+    background-image: url("../images/Login.jpg");
+    background-size: cover;
     background-repeat: no-repeat;
+    background-position: center;
+   transition-duration: 0.6s;
+    
   }
 
   .image-container img{
-    width: 80%;
-    margin: -72vh 0 0 -25vh;
+    width: 75%;
+    margin: -72vh 0 0 0;
   }
   
   .login-text {
@@ -31,6 +57,7 @@
     text-decoration: none;
     font-weight: 600;
     padding: 0 0 20px 0;
+    
   }
   
   .login-box {
