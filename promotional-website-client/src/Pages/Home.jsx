@@ -2,6 +2,7 @@ import React from 'react';
 import './styledPage.css';
 import Logo from '../assets/Main-Logo.png';
 import User from '../assets/student.svg';
+import { useRef } from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import LoginIcon from '@mui/icons-material/Login';
@@ -11,6 +12,9 @@ import EditIcon from '@mui/icons-material/Edit';
 import { SetMealRounded } from '@mui/icons-material';
 import {Link,Outlet,NavLink} from 'react-router-dom'
 import Welcome from './Welcome';
+import MenuSharpIcon from '@mui/icons-material/MenuSharp';
+import { IconButton } from '@mui/material';
+import { FaBars, FaTimes } from "react-icons/fa";
 
 
 function Home() {
@@ -19,6 +23,13 @@ function Home() {
   const [isLoggetIn,setIsLoggedIn]=useState(false);
   const navigate=useNavigate();
   const userData=JSON.parse(localStorage.getItem("userData"));
+  const navRef = useRef();
+
+	const showNavbar = () => {
+		navRef.current.classList.toggle(
+			"responsive_nav"
+		);
+	};
 
   
   const toggleMenu=()=>{
@@ -34,17 +45,25 @@ function Home() {
   }
   return (
     <>
-   <div className="hero">
-   <nav >
+    <header className='hero'>
+    <div className="logo-conatiner">
+    <h3 className='logo-mindisplay'>TRAINING TRAINS</h3>
     <img src={Logo} alt='Logo' className='home-logo'/>
-    <ul id='navbar'>
-      <li><NavLink className='page-link' to='/'>Home</NavLink></li>
-      <li><NavLink className='page-link' to='course'>Course</NavLink></li>
-      <li><NavLink className='page-link' to='product'>Product</NavLink></li>
-      <li><NavLink className='page-link' to='service'>Service</NavLink></li>
-      <li><NavLink className='page-link' to='contact'>Contact</NavLink></li>
-    </ul>
-    <img src={User} alt='Logo' className='home-user' onClick={toggleMenu}/>
+    </div>
+    
+			<nav className='navbar' id='navcontainer' ref={navRef}>
+				<NavLink to='/' className='page-link'>Home</NavLink>
+				<NavLink to='course' className='page-link'>Course</NavLink>
+				<NavLink to='product' className='page-link'>Product</NavLink>
+				<NavLink to='service' className='page-link'>Service</NavLink>
+				<NavLink to='contact' className='page-link'>Contact</NavLink>
+				<button
+					className="nav-btn nav-close-btn"
+					onClick={showNavbar}>
+					<FaTimes />
+				</button>
+
+        <img src={User} alt='Logo' className='home-user' onClick={toggleMenu}/>
     {isLoggetIn?(
     <div className="sub-menu-wrap" id='subMenu'>
       <div className="sub-menu">
@@ -86,8 +105,13 @@ function Home() {
       </div>
     </div>
       )}
-   </nav>
-   </div>
+			</nav>
+			<button
+				className="nav-btn"
+				onClick={showNavbar}>
+				<FaBars />
+			</button>
+		</header>
    <div className='Outlet'>
     <Outlet/>
    </div>
