@@ -1,0 +1,80 @@
+import React, { useState } from 'react'
+import './styledPage.css'
+import LanguageIcon from '@mui/icons-material/Language';
+import DateRangeIcon from '@mui/icons-material/DateRange';
+import AutoStoriesIcon from '@mui/icons-material/AutoStories';
+import Image from '../images/course_img/course1.png';
+import { Box, Typography } from '@mui/material';
+
+const IconWithName = ({ icon: IconComponent, name }) => {
+  return (
+    <Box display="flex" flexDirection="row" alignItems="center">
+      <IconComponent fontSize="small" />
+      <Typography variant="caption" style={{fontSize:"15px",padding:'5px',marginLeft:'3px'}}>{name}</Typography>
+    </Box>
+  );
+};
+
+function CourseBook() {
+  const [isInfoSelected,setInfoSelected]=useState({item1:false,item2:false,item3:false});
+  return (<>
+  <div className="whole-course-deatils-container">
+
+<div className="course-card">
+    <img src={Image} alt="Course Image"/>
+    <div className="course-card-content">
+        <h2 className="course-title">Data Science With Python</h2>
+        <p className="course-info">
+            Transform data into insights and boost your career with Python Data Science.
+        </p>
+        <div className="course-rating">
+            <span>⭐ 4.4 (?? ratings)</span>
+        </div>
+        <div className='icon-container'>
+          <IconWithName icon={LanguageIcon} name='English, Tamil'/>
+          <IconWithName icon={DateRangeIcon} name='? Months'/>
+        </div>
+        <h3>Price</h3>
+        <center><button>Enroll now</button></center>
+    </div>
+
+</div>
+    <div className="coursemoredetails">
+      <p className={isInfoSelected.item1?'course-details-selection-option':'coursemoredetailsoption '} onClick={()=>setInfoSelected({item1:true,item2:false,item3:false})}>What you will learn</p>
+      <p className={isInfoSelected.item2?'course-details-selection-option':'coursemoredetailsoption '} onClick={()=>setInfoSelected({item1:false,item2:true,item3:false})}>Course content</p>
+      <p className={isInfoSelected.item3?'course-details-selection-option':'coursemoredetailsoption '} onClick={()=>setInfoSelected({item1:false,item2:false,item3:true})}>Instructors</p>
+     </div>
+     <div className='hr-container'></div>
+</div>
+
+     {/* <center><div className='coursebook-container'>
+     <div className="courseitem">
+      <img src={Image} alt='Course Photo' style={{width:'60%',height:'60%'}}/>
+     </div>
+     <div className="courseitem">
+      <div className="coursedetails">
+        <h1>Data Science With Python</h1>
+        <p>Transform data into insights and boost your career with Python Data Science.</p>
+        <text>Created by <span>Training Trains</span></text>
+        <div className='icon-container'>
+          <IconWithName icon={LanguageIcon} name='English, Tamil'/>
+          <IconWithName icon={DateRangeIcon} name='? Months'/>
+          <IconWithName icon={AutoStoriesIcon} name='Theory & Practical'/>
+        </div>
+        <button>Enroll now</button>
+      </div>
+     </div>
+     </div>
+     <div className="coursemoredetails">
+      <p>What you will learn</p>
+      <p>Course content</p>
+      <p>Instructors</p>
+     </div>
+     <hr/>
+     </center> */}
+  </>
+   
+  )
+}
+
+export default CourseBook

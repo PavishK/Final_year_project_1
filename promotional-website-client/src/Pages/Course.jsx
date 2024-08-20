@@ -5,13 +5,12 @@ import { IconButton } from '@mui/material';
 import CourseList from '../images/course_img/CourseList';
 
 function Course() {
-  console.log(CourseList)
   return (
     <>
     <div className="course-container">
     {CourseList.map((course,key)=>(
       
-      <div className="course-item">
+      <div className="course-item" key={course.id}>
         <div className="courses">
             <img src={course.src} alt='none'/>
         </div>
@@ -23,7 +22,7 @@ function Course() {
         <p className='description-text'>{course.desc}</p>
         <div className="enroll-container">
         <p className='enrolled-item'><span className='enrolled-count'>{course.enrolled}</span> Enrolled</p>
-        <button>Enroll Now <IconButton><NorthEastIcon sx={{fontSize:'medium'}}/></IconButton></button>
+        <button key={key} onClick={course.btn}>Enroll Now <NorthEastIcon sx={{fontSize:'medium'}}/></button>
         </div>
         </div>
       </div>

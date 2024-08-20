@@ -8,6 +8,7 @@ import Course from './Pages/Course';
 import Product from './Pages/Product';
 import Service from './Pages/Service';
 import Contact from './Pages/Contact';
+import CourseBook from './Pages/CourseBook';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path='/contact' element={<Contact/>}/>
         </Route>
         <Route path="/form" element={<Login />} />
+        <Route path="/coursebook" element={<CourseBook />} />
       </Routes>
     </div>
   )
