@@ -1,10 +1,14 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './styledPage.css'
 import LanguageIcon from '@mui/icons-material/Language';
 import DateRangeIcon from '@mui/icons-material/DateRange';
 import AutoStoriesIcon from '@mui/icons-material/AutoStories';
 import Image from '../images/course_img/course1.png';
 import { Box, Typography } from '@mui/material';
+import WWYLearn from '../CourseInfoComponents/WhatWillYouLearn';
+import CContent from '../CourseInfoComponents/CourseContent';
+import Instructors from '../CourseInfoComponents/Instructors';
+import { useLocation } from 'react-router-dom';
 
 const IconWithName = ({ icon: IconComponent, name }) => {
   return (
@@ -16,14 +20,25 @@ const IconWithName = ({ icon: IconComponent, name }) => {
 };
 
 function CourseBook() {
-  const [isInfoSelected,setInfoSelected]=useState({item1:false,item2:false,item3:false});
+  const [isInfoSelected,setInfoSelected]=useState({item1:true,item2:false,item3:false});
+  const [Data,setData]=useState(null);
+  const location=useLocation();
+  useEffect(() => {
+    if(location.pathname==="/course-book"){
+      setData(location.state.name);
+      console.log(location.state);
+    }
+    }, [location]);
+
+  
+
   return (<>
   <div className="whole-course-deatils-container">
 
 <div className="course-card">
-    <img src={Image} alt="Course Image"/>
+    <img src={location.state.coursesrc} alt="Course Image"/>
     <div className="course-card-content">
-        <h2 className="course-title">Data Science With Python</h2>
+        <h2 className="course-title">{Data}</h2>
         <p className="course-info">
             Transform data into insights and boost your career with Python Data Science.
         </p>
@@ -31,10 +46,10 @@ function CourseBook() {
             <span>⭐ 4.4 (?? ratings)</span>
         </div>
         <div className='icon-container'>
-          <IconWithName icon={LanguageIcon} name='English, Tamil'/>
+          <IconWithName icon={LanguageIcon} name='English,Tamil'/>
           <IconWithName icon={DateRangeIcon} name='? Months'/>
         </div>
-        <h3>Price</h3>
+        <h3>{location.state.cost}</h3>
         <center><button>Enroll now</button></center>
     </div>
 
@@ -45,6 +60,12 @@ function CourseBook() {
       <p className={isInfoSelected.item3?'course-details-selection-option':'coursemoredetailsoption '} onClick={()=>setInfoSelected({item1:false,item2:false,item3:true})}>Instructors</p>
      </div>
      <div className='hr-container'></div>
+     <div className="list-content-container">
+     <div className={isInfoSelected.item1?'list-content-container-item':'course-content-container'}><WWYLearn/></div>
+     <div className={isInfoSelected.item2?'list-content-container-item':'course-content-container'}><CContent/></div>
+     <div className={isInfoSelected.item3?'list-content-container-item':'course-content-container'}><Instructors/></div>
+
+     </div>
 </div>
 
      {/* <center><div className='coursebook-container'>

@@ -435,7 +435,7 @@ body{
 
 .coursemoredetailsoption {
     font-size: large;
-    font-weight: 300;
+    font-weight: 400;
     padding: 1px;
     margin: 0 0 0 6px;
     cursor: pointer;
@@ -498,6 +498,7 @@ body{
     height: auto;
     display: block;
     border-radius: 20px;
+    padding: 1px;
 }
 
 .course-card-content {
@@ -561,10 +562,26 @@ body{
     background-color: #9696fe;
 }
 .course-card-content h3{
-    font-size: larger;
-    font-weight: bold;
+    font-size: medium;
+    font-weight: 650;
     color: green;
     text-transform: capitalize;
+    padding: 3px;
+}
+.course-card-content h3::before{
+    content: '₹';
+}
+
+.list-content-container{
+    padding: 4px;
+
+}
+.list-content-container-item{
+    padding: 3px;
+
+}
+.course-content-container{
+    display: none;
 }
 
 @media (max-width: 1024px) {
@@ -610,5 +627,4 @@ body{
     flex-direction: column;
 }
 }
-
  
