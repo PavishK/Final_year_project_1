@@ -32,9 +32,48 @@ app.get("/", (req, res) => {
 
 app.use("/user", userRoutes);
 
+const courseSchema = new mongoose.Schema({
+  id: Number,
+  src: String,
+  name: String,
+  cost: String,
+  enrolled: Number,
+  desc: String,
+  coursesrc: String
+});
+
+const Course = mongoose.model('Course', courseSchema);
+
+// Route to add courses to MongoDB
+app.post('/add-courses', async (req, res) => {
+  try {
+      const courses = req.body;
+      await Course.insertMany(courses);
+      res.status(200).send('Courses added successfully!');
+      console.log("Course Added successfully!");
+  } catch (error) {
+      res.status(500).send('Error adding courses');
+  }
+});
+
+// Route to fetch courses from MongoDB
+app.get('/courses', async (req, res) => {
+  try {
+      const courses = await Course.find();
+      res.status(200).json(courses);
+      console.log("Data fetched by -> ",req.url);
+  } catch (error) {
+      res.status(500).send('Error fetching courses');
+  }
+});
+
+
+
+
+
 // Error Handling middlewares
 app.use(notFound);
 app.use(errorHandler);
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 8080;
 app.listen(PORT, console.log("Server is Running..."));

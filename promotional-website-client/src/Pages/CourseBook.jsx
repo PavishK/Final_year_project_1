@@ -3,7 +3,6 @@ import './styledPage.css'
 import LanguageIcon from '@mui/icons-material/Language';
 import DateRangeIcon from '@mui/icons-material/DateRange';
 import AutoStoriesIcon from '@mui/icons-material/AutoStories';
-import Image from '../images/course_img/course1.png';
 import { Box, Typography } from '@mui/material';
 import WWYLearn from '../CourseInfoComponents/WhatWillYouLearn';
 import CContent from '../CourseInfoComponents/CourseContent';

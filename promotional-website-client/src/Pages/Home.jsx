@@ -15,6 +15,7 @@ import Welcome from './Welcome';
 import MenuSharpIcon from '@mui/icons-material/MenuSharp';
 import { IconButton } from '@mui/material';
 import { FaBars, FaTimes } from "react-icons/fa";
+import Footer from './Footer';
 
 
 function Home() {
@@ -115,6 +116,7 @@ function Home() {
    <div className='Outlet'>
     <Outlet/>
    </div>
+   <Footer/>
    </>
   )
 }

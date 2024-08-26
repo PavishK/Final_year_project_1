@@ -22,7 +22,7 @@
 }
 /*-------------------------------------------Course content--------------------------------*/
 
-summary {
+.item2-course-container summary {
     list-style: none;
     display: flex;
     justify-content: space-between;
@@ -33,7 +33,7 @@ summary {
     cursor: pointer;
   }
   
-  summary::after {
+.item2-course-container summary::after {
     content:'';
     width: 18px;
     height: 10px;
@@ -43,16 +43,16 @@ summary {
     margin: 0 30px 0 30px;
   }
   
-  details[open] > summary::after {
+.item2-course-container  details[open] > summary::after {
     transform: rotate(180deg) scale(1.2);
     transition-duration: 0.5s;
   }
   
-  summary::-webkit-details-marker {
+.item2-course-container  summary::-webkit-details-marker {
     display: none;
   }
   
-  summary {
+.item2-course-container  summary {
     color: #30353b;
     border-radius: 5px;
     
@@ -62,14 +62,14 @@ summary {
    display: flex;
   }
   
-  details[open] summary {
+  .item2-course-container  details[open] summary {
     border-radius: 5px 5px 0 0; 
     background-color: #9696FE;
     font-weight: 500;
     transition-duration: 0.5s;
   }
   
-  details {
+  .item2-course-container  details {
     background-color:#FFFFFF;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
@@ -78,9 +78,9 @@ summary {
   }
   
   
-  article > *:first-child {margin: 0;}
-  article > * + * {margin: 0.75em 0 0 0; }
-  article {
+  .item2-course-container article > *:first-child {margin: 0;}
+  .item2-course-container article > * + * {margin: 0.75em 0 0 0; }
+  .item2-course-container article {
     padding: 10px; margin: 0;
     transition-duration: 0.5s;
     background-color: #EAEEFA;

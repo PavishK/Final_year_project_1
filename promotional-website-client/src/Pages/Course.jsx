@@ -1,12 +1,38 @@
 import React from 'react';
+import { useState ,useEffect} from 'react';
 import './styledPage.css';
 import NorthEastIcon from '@mui/icons-material/NorthEast';
 import CourseList from '../images/course_img/CourseList';
-import CourseBook from './CourseBook';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { Backdrop, CircularProgress } from "@mui/material";
+import Toaster from '../Form/Toaster';
 
 function Course() {
+
+  const [courses, setCourses] = useState([]);
+  const [isLoading,setIsLoading]=useState(false);
   const navigate=useNavigate(null);
+
+  useEffect(() => {
+      const fetchCourses = async () => {
+        setIsLoading(true);
+          try { 
+             
+              const response = await axios.get('http://localhost:8080/courses');
+              setCourses(response.data);
+              console.log(response.data)
+          } catch (error) {
+              console.error('Error fetching courses:', error);
+              setIsLoading(false);
+          }
+          setIsLoading(false);
+      };
+
+      fetchCourses();
+  }, []);
+
+
   const SelectCourse = (item) => {
     localStorage.setItem("CourseData",JSON.stringify(item));
     navigate('/course-book',{state:item});
@@ -15,11 +41,14 @@ function Course() {
 
   return (
     <>
+      <Backdrop sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }} open={isLoading}>
+        <CircularProgress />
+      </Backdrop>
       <div className="course-container">
-        {CourseList.map((course) => (
+        {courses.map((course,key) => (
           <div className="course-item" key={course.id}>
             <div className="courses">
-              <img src={course.src} alt='none' />
+              <img src={CourseList[key]} alt='none' />
             </div>
             <div className="courses">
               <div className="right-item-container">
@@ -35,6 +64,7 @@ function Course() {
           </div>
         ))}
       </div>
+      {/* {!isLoading ? (<Toaster key="201" message="Network error" />) : null} */}
     </>
   );
 }
