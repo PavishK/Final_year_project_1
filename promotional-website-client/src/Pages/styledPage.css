@@ -735,7 +735,18 @@ body{
         flex-direction: column;
         gap: 20px;
     }
+    .whole-contact-container-list{
+        width: 100% !important;
+    }
 
+    .Contact-list-container img{
+        display: none;
+    }
+    .article-contact-container{
+        text-align: left;
+        padding-left: 18px !important;
+      }
+    
 }
 
 
@@ -862,10 +873,12 @@ body{
 .whole-contact-container-list  details[open] summary {border-radius: 5px 5px 0 0;}
   
 .whole-contact-container-list details {
+    display: flex;
     margin-top: 30px;
     border-radius: 5px;
     background-color: transparent;
-    width: 600px;
+    width:100%;
+    cursor: pointer;
   }
   .whole-contact-container-list details article{
     font-size: 18px;
@@ -881,7 +894,81 @@ body{
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
 
+  .article-contact-container{
+    text-align: left;
+    padding-left: 4rem;
+  }
+
   .Contact-list-container{
     display: flex;
     gap: 10px;
+  }
+
+  
+
+  .contact-bottom-container{
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .contact-bottom-container button{
+    width: 120px;
+    padding: 10px;
+    border-radius: 50px;
+    background-color: #8282F8;
+    border:none;
+    font-size: medium;
+    font-weight: 700;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition-duration: 0.5s;
+  }
+
+  .contact-bottom-container button:hover{
+    transform: scale(1.1);
+    background-color: #a2a2fe;
+    
+  }
+  .contact-bottom-container h2{
+    margin-top: 60px;
+    font-size: 28px;
+    font-weight: 600;
+  }
+
+  .contact-bottom-container p{
+    font-size: 16px;
+    font-weight: 450;
+    color: #3A3D44;
+  }
+
+  .contact-btn-container{
+    margin-top: 22px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+  }
+  .contact-btn-container button{
+    padding: 10px;
+    width: 140px;
+    border-radius: 40px;
+    font-size: medium;
+    font-weight: 600;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    transition-duration: 0.4s;
+  }
+
+  .contact-btn-container button:nth-child(1){
+    background-color: transparent;
+    border: 3px solid blue;
+  }
+  .contact-btn-container button:nth-child(2){
+    background-color: #8282F8;
+    border: 3px solid #8282F8;
+  }
+
+  .contact-btn-container button:hover{
+    transform: scale(1.1);
   }
