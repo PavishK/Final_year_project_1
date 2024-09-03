@@ -55,8 +55,8 @@ function Home() {
 			<nav className='navbar' id='navcontainer' ref={navRef}>
 				<NavLink to='/' className='page-link'>Home</NavLink>
 				<NavLink to='course' className='page-link'>Course</NavLink>
-				<NavLink to='product' className='page-link'>Product</NavLink>
-				<NavLink to='service' className='page-link'>Service</NavLink>
+				<NavLink to='product' className='page-link'>Product & Service</NavLink>
+				{/* <NavLink to='service' className='page-link'>Service</NavLink> */}
 				<NavLink to='contact' className='page-link'>Contact</NavLink>
 				<button
 					className="nav-btn nav-close-btn"

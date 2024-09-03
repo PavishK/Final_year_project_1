@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState} from 'react'
 import Logo from '../assets/Main-Logo.png';
 import './styledPage.css';
 import Icon1 from '../assets/Icons/smileChat.png';
@@ -16,7 +16,14 @@ import Icon10 from '../assets/Icons/play.png';
 import ChatBubbleOutlinedIcon from '@mui/icons-material/ChatBubbleOutlined';
 import { useNavigate } from 'react-router-dom';
 
+import PopupMessage from '../PopupComponent/PopupMessage';
+
 function Contact() {
+  const [isPopupVisible, setPopupVisible] = useState(false);
+
+  const togglePopup = () => {
+    setPopupVisible(!isPopupVisible);
+  };
 
   const navigate=useNavigate(null);
 
@@ -71,7 +78,12 @@ function Contact() {
         ))}
       </div>
       <div className="contact-bottom-container">
-      <button><p>Ask us <ChatBubbleOutlinedIcon style={{fontSize:"medium"}}/></p></button>
+      <button onClick={togglePopup}><p>Ask us <ChatBubbleOutlinedIcon style={{fontSize:"medium"}}/></p></button>
+
+      {isPopupVisible && (
+        <PopupMessage message="This is a responsive popup!" onClose={togglePopup} />
+      )}
+
       <h2>Ready to level op your business and skills?</h2>
       <p>Start your career now</p>
       </div>
