@@ -1,4 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Shantell+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+  
 body{
     margin: 0;
     padding: 0;
@@ -915,7 +918,7 @@ body{
     flex-direction: column;
   }
 
-  .contact-bottom-container button{
+  .contact-bottom-container .contact-bottom-container-ask-now{
     width: 120px;
     padding: 10px;
     border-radius: 50px;
@@ -927,7 +930,7 @@ body{
     transition-duration: 0.5s;
   }
 
-  .contact-bottom-container button:hover{
+  .contact-bottom-container .contact-bottom-container-ask-now:hover{
     transform: scale(1.1);
     background-color: #a2a2fe;
     
@@ -951,7 +954,7 @@ body{
     align-items: center;
     gap: 20px;
   }
-  .contact-btn-container button{
+  .contact-btn-container .contact-btn-container-btn{
     padding: 10px;
     width: 140px;
     border-radius: 40px;
@@ -961,15 +964,172 @@ body{
     transition-duration: 0.4s;
   }
 
-  .contact-btn-container button:nth-child(1){
+  .contact-btn-container .contact-btn-container-btn:nth-child(1){
     background-color: transparent;
     border: 3px solid blue;
   }
-  .contact-btn-container button:nth-child(2){
+  .contact-btn-container .contact-btn-container-btn:nth-child(2){
     background-color: #8282F8;
     border: 3px solid #8282F8;
   }
 
-  .contact-btn-container button:hover{
+  .contact-btn-container .contact-btn-container-btn:hover{
     transform: scale(1.1);
   }
+
+  /*-----------------------------------------Services--------------------------------*/
+
+  .service-main-container{
+    margin: 30px 40px 0px 40px;
+  }
+
+  .service-header {
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .service-title {
+    font-family: "Shantell Sans", cursive;
+    font-optical-sizing: auto;
+    font-size: 4.5rem;
+    font-weight: bold;
+    color: #252567;
+   
+  }
+  
+  .service-description {
+    font-size: 1.2rem;
+    width:400px ;
+    font-family: "Shantell Sans", cursive;
+    font-optical-sizing: auto;
+    margin: 50px 0 0 0;
+    color: #7c7775;
+  }
+  
+  .service-branding-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+  }
+  .service-section-item{
+    flex: 0.5;
+  }
+
+  .service-section-item .service-left-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .service-section-item .service-left-container{
+    width: 35rem;
+  }
+
+  .service-section-item .service-left-container h2{
+    font-size: 2.5rem;
+    text-align: left;
+    color: #252567;
+    margin-bottom: 8px;
+  }
+
+  .service-section-item .service-left-container p{
+    font-size: 16px;
+    padding-top: 10px;
+    text-align: justify;
+  }
+  
+  .service-section-item img {
+    width: 60%;
+    height: auto;
+  }
+
+  .service-item-container-main{
+    display: flex;
+    margin: 50px 0 0 0;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+
+  .service-item-container-main:nth-child(odd){
+    flex-direction: row-reverse;
+  }
+
+
+  .service-item-container-main .service-image{
+    width: 24%;
+  }
+
+  .page-end-line{
+    height: 4px;
+    width: 30rem;
+    background-color: blue;
+    border-radius: 10%;
+  }
+
+  
+  .service-details{
+    padding: 4px;
+    
+
+  }
+  .service-summary{
+    font-size: 20px;
+    font-weight: 500;
+    padding: 6px;
+    transition-duration: .5s;
+  }
+
+  .service-desc{
+    font-size: 16px;
+    width: 32rem;
+    text-align: start;
+    padding: 8px;
+    margin-left: 20px;
+  }
+
+  .service-headings{
+    padding: 8px;
+  }
+
+
+  @media (max-width: 1024px) {
+    .page-end-line{
+      width: 5rem;
+    }
+
+
+
+    .service-item-container-main{
+      flex-direction: column;
+      width: fit-content;
+    }
+    .service-item-container-main:nth-child(odd){
+      flex-direction: column;
+    }
+
+    .service-section-item .service-left-container{
+      width: fit-content !important;
+    }
+    .service-description{
+        width: fit-content;
+    }
+    .service-title{
+        font-size: 2.5rem;
+        text-rendering: geometricPrecision;
+    }
+
+    .service-header {
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .service-branding-section{
+        flex-direction: column;
+    }
+
+  }
+

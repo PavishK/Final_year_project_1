@@ -78,7 +78,7 @@ function Contact() {
         ))}
       </div>
       <div className="contact-bottom-container">
-      <button onClick={togglePopup}><p>Ask us <ChatBubbleOutlinedIcon style={{fontSize:"medium"}}/></p></button>
+      <button onClick={togglePopup} className='contact-bottom-container-ask-now'><p>Ask us <ChatBubbleOutlinedIcon style={{fontSize:"medium"}}/></p></button>
 
       {isPopupVisible && (
         <PopupMessage message="This is a responsive popup!" onClose={togglePopup} />
@@ -88,8 +88,8 @@ function Contact() {
       <p>Start your career now</p>
       </div>
       <div className="contact-btn-container">
-        <button onClick={()=>navigate('/product')}>Product</button>
-        <button onClick={()=>navigate('/course')}>Course</button>
+        <button className='contact-btn-container-btn' onClick={()=>navigate('/product')}>Product</button>
+        <button className='contact-btn-container-btn' onClick={()=>navigate('/course')}>Course</button>
       </div>
       
       </center>
