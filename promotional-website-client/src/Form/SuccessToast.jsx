@@ -2,7 +2,7 @@ import { Alert, IconButton, Snackbar } from "@mui/material";
 import CloseIcon from '@mui/icons-material/Close';
 import React from "react";
 
-export default function Toaster({ message }) {
+export default function SuccessToaster({ message }) {
   const [open, setOpen] = React.useState(true);
 
   function handleClose(event, reason) {
@@ -34,7 +34,7 @@ export default function Toaster({ message }) {
       >
         <Alert 
           onClose={handleClose} 
-          severity="warning" 
+          severity="success" // Changed to success
           sx={{
             width: {
               xs: '80vw', // for small screens (mobile)

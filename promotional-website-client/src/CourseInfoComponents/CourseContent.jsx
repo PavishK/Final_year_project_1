@@ -2,6 +2,7 @@ import React from 'react'
 import './CourseInfo.css'
 import CContent  from './CourseContentData';
 
+
 function CourseContent() {
 
   return (

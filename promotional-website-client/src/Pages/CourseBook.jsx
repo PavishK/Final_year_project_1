@@ -2,14 +2,15 @@ import React, { useEffect, useState } from 'react'
 import './styledPage.css'
 import LanguageIcon from '@mui/icons-material/Language';
 import DateRangeIcon from '@mui/icons-material/DateRange';
-import AutoStoriesIcon from '@mui/icons-material/AutoStories';
 import { Box, Typography } from '@mui/material';
 import WWYLearn from '../CourseInfoComponents/WhatWillYouLearn';
 import CContent from '../CourseInfoComponents/CourseContent';
 import Instructors from '../CourseInfoComponents/Instructors';
 import { useLocation } from 'react-router-dom';
+import PopupMessage from '../PopupComponent/PopupMessage';
 
 const IconWithName = ({ icon: IconComponent, name }) => {
+
   return (
     <Box display="flex" flexDirection="row" alignItems="center">
       <IconComponent fontSize="small" />
@@ -21,13 +22,18 @@ const IconWithName = ({ icon: IconComponent, name }) => {
 function CourseBook() {
   const [isInfoSelected,setInfoSelected]=useState({item1:true,item2:false,item3:false});
   const [Data,setData]=useState(null);
+  const [isPopupVisible, setPopupVisible] = useState(false);
   const location=useLocation();
+
   useEffect(() => {
     if(location.pathname==="/course-book"){
       setData(location.state.name);
       console.log(location.state);
     }
     }, [location]);
+    const togglePopup = () => {
+      setPopupVisible(!isPopupVisible);
+    };
 
   
 
@@ -49,7 +55,7 @@ function CourseBook() {
           <IconWithName icon={DateRangeIcon} name='? Months'/>
         </div>
         <h3>{location.state.cost}</h3>
-        <center><button>Enroll now</button></center>
+        <center><button onClick={togglePopup}>Enroll now</button></center>
     </div>
 
 </div>
@@ -66,6 +72,9 @@ function CourseBook() {
 
      </div>
 </div>
+  {isPopupVisible && (
+        <PopupMessage message="coursebook" data={location.state} onClose={togglePopup} />
+      )}
 
      {/* <center><div className='coursebook-container'>
      <div className="courseitem">

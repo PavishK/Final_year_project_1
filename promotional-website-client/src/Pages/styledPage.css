@@ -29,6 +29,8 @@ body{
 	padding: 0 2rem;
 	background-color: var(--mainColor);
 	color: var(--textColor);
+  
+
 }
 
 .navbar{
@@ -86,6 +88,7 @@ body{
 
 
 @media only screen and (max-width: 1024px) {
+
 
     .logo-mindisplay{
         display: block;
@@ -388,23 +391,32 @@ body{
 
 }
 
+.enroll-container button:disabled{
+  cursor: not-allowed;
+}
+
 .enrolled-item{
     border: none;
     border-radius: 5px;
     padding: 6px;
+    color: green;
+    font-weight: 500;
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
 }
-.enrolled-item .enrolled-count{
-    padding: 5px;
-    border-radius: 5px;
-    background-color: #37B29E;
-    color: white;
-    font-size: small;
+.enrolled-item-notAvailabel{
+  border: none;
+  border-radius: 5px;
+  padding: 6px;
+  color: #e74c3c;
+  font-weight: 500;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
 }
+
 .enrolled-item button{
     font-size: medium;
     padding: 3px;
 }
+
 
 /*--------------------------------------Course animatio---------------------------*/
 /* @keyframes fadeOut {
@@ -1045,6 +1057,12 @@ body{
   .service-section-item img {
     width: 60%;
     height: auto;
+    transition-duration: 0.5s;
+  }
+
+  .service-section-item img:hover{
+    transform: scale(1.1);
+
   }
 
   .service-item-container-main{
@@ -1073,9 +1091,9 @@ body{
   
   .service-details{
     padding: 4px;
-    
-
+    cursor: pointer;
   }
+
   .service-summary{
     font-size: 20px;
     font-weight: 500;
@@ -1086,25 +1104,40 @@ body{
   .service-desc{
     font-size: 16px;
     width: 32rem;
-    text-align: start;
+    text-align: justify;
     padding: 8px;
     margin-left: 20px;
   }
+  .service-image{
+    transition-duration: 0.5s;
+    animation-name: floating;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+  }
+
+  @keyframes floating {
+    from { transform: translate(0,  0px); }
+    65%  { transform: translate(0, 15px); }
+    to   { transform: translate(0, -0px); }    
+}
 
   .service-headings{
     padding: 8px;
+    cursor: pointer;
   }
 
 
   @media (max-width: 1024px) {
     .page-end-line{
-      width: 5rem;
+      width: 8rem;
+      margin-top: 20px;
     }
-
-
 
     .service-item-container-main{
       flex-direction: column;
+      justify-content: center !important;
+      align-items: center !important;
       width: fit-content;
     }
     .service-item-container-main:nth-child(odd){
@@ -1128,7 +1161,10 @@ body{
     }
 
     .service-branding-section{
-        flex-direction: column;
+        flex-direction: column-reverse;
+    }
+    .service-image{
+      padding: 10px;
     }
 
   }

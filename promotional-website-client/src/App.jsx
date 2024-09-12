@@ -9,10 +9,12 @@ import Product from './Pages/Product';
 import Service from './Pages/Service';
 import Contact from './Pages/Contact';
 import CourseBook from './Pages/CourseBook';
+import NetworkStatusComponent from './NetworkStatusComponent';
 
 function App() {
   return (
     <div >
+    {/* <NetworkStatusComponent> */}
       <Routes>
         <Route path='/' element={<Home />}>
         ``<Route index element={<Welcome/>}/>
@@ -25,6 +27,7 @@ function App() {
         <Route path="/form" element={<Login />} />
         <Route path="/coursebook" element={<CourseBook />} />
       </Routes>
+      {/* </NetworkStatusComponent> */}
     </div>
   )
 }

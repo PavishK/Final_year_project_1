@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import BGImage from '../images/AskUs.svg';
 import './PopupStyle.css';
-import Toaster from '../Form/Toaster';
+import SuccessToaster from '../Form/SuccessToast';
 
 
 const AskUs = () => {
@@ -77,7 +77,7 @@ const AskUs = () => {
         </form>
         <p className="ask-later-link" onClick={handleAskLater}>Ask later</p>
       </div>
-      {isDrafted?(<Toaster key="201" message="Message saved in draft." />):null}
+      {isDrafted?(<SuccessToaster key="201" message="Message saved in draft." />):null}
     </div>
   );
 };

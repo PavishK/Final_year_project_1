@@ -8,19 +8,12 @@ import { useNavigate } from 'react-router-dom';
 import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
-import EditIcon from '@mui/icons-material/Edit';
-import { SetMealRounded } from '@mui/icons-material';
-import {Link,Outlet,NavLink} from 'react-router-dom'
-import Welcome from './Welcome';
-import MenuSharpIcon from '@mui/icons-material/MenuSharp';
-import { IconButton } from '@mui/material';
+import {Outlet,NavLink} from 'react-router-dom'
 import { FaBars, FaTimes } from "react-icons/fa";
 import Footer from './Footer';
 
 
 function Home() {
-
-  const [isTouched,setIsTouched]=useState({home:true,course:false,product:false,service:false,contact:false});
   const [isLoggetIn,setIsLoggedIn]=useState(false);
   const navigate=useNavigate();
   const userData=JSON.parse(localStorage.getItem("userData"));
@@ -39,7 +32,8 @@ function Home() {
     setIsLoggedIn(userData.status===200 ||userData.status===201 ?true:false);
   }
 
-  const LogoutHandler=()=>{
+  const LogoutHandler=(e)=>{
+    e.stopPropagation();
     localStorage.removeItem("userData");
     setIsLoggedIn(false);
     navigate("/form");

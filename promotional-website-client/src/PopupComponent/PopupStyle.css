@@ -38,8 +38,8 @@
   padding: 20px;
   border-radius: 8px;
   max-width: 900px;
-  width: 90%;
-  height: 90%;
+  width:fit-content;
+  height: fit-content;
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
   animation: slideIn 0.3s ease-in-out;
   position: relative;
@@ -59,6 +59,11 @@
 /*---------------------------------------------------AskUs--------------------------------------------*/
 
 @media (max-width: 1024px) {
+  .popup-container{
+    height: fit-content;
+  }
+
+
     .ask-us-container {
       flex-direction: column !important;
       height: 100% !important;
@@ -76,7 +81,7 @@
 .ask-us-container {
     display: flex;
     flex-direction: row;
-    height: 100vh;
+    height: fit-content;
     width: 100%;
   }
   
@@ -154,4 +159,217 @@
   .ask-later-link:hover {
     text-decoration: underline ;
   }
+
+/*--------------------------------------CourseEnrollment------------------------------------*/
+
+
+.courseenrollment-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3px;
+}
+
+.courseenrollment-form {
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  width: 100%;
+  height: fit-content;
+  text-align: left;
+}
+
+.courseenrollment-form h2 {
+  margin-bottom: 20px;
+  font-size: 1.5em;
+  text-align: center;
+}
+
+.courseenrollment-form .label-course-item{
+  padding: 6px;
+}
+
+.courseenrollment-form input{
+  width: 450px;
+  padding: 10px;
+  margin: 0px 0px 20px 6px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.courseenrollment-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn-dismiss,
+.btn-submit {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1em;
+}
+
+.btn-dismiss {
+  background-color: #ccc;
+}
+
+.btn-submit {
+  background-color: #007bff;
+  color: #fff;
+}
+
+@media only screen and (max-width: 1024px) {
   
+  .courseenrollment-form input{
+    width: fit-content;
+    margin: 20px 0 0 0;
+  }
+
+  .btn-dismiss,
+  .btn-submit {
+    width: 100%;
+    margin: 5px 0;
+  }
+}
+
+/*-------------------------------------------Payment Page------------------------------------*/
+
+
+.payment-container {
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.payment-paper {
+  padding: 30px;
+  border-radius: 12px;
+  background-color: #f9f9f9;
+}
+
+.payment-title {
+  text-align: center;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.payment-subtitle {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #555;
+}
+
+.payment-option {
+  padding: 20px;
+  text-align: center;
+  border: 2px solid #ddd;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: all 0.3s;
+}
+
+.payment-option:hover {
+  border-color: #007bff;
+}
+
+.payment-option.active {
+  border-color: #007bff;
+  background-color: #e6f7ff;
+}
+
+.payment-label {
+  font-weight: 500;
+  color: #333;
+}
+
+.payment-icon {
+  font-size: 40px;
+  color: #007bff;
+  margin-top: 10px;
+}
+
+.payment-description {
+  margin-top: 15px;
+  font-size: 16px;
+  color: #666;
+}
+
+.payment-divider {
+  margin: 20px 0;
+  
+}
+
+.payment-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px 0 0 0;
+}
+
+.back-button,
+.submit-button {
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.back-button {
+  background-color: #f5f5f5;
+  color: #333;
+  border: 2px solid #ddd;
+  transition: all 0.3s;
+}
+
+.back-button:hover {
+  background-color: #eee;
+}
+
+.submit-button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  transition: all 0.3s;
+}
+
+.submit-button:hover {
+  background-color: #0056b3;
+}
+
+.check-icon {
+  color: green;
+  font-size: 40px;
+  margin-right: 10px;
+}
+
+.close-button-confirm-popup {
+  background-color: transparent;
+  color: black;
+  padding: 10px 20px;
+  border-radius: 8px;
+}
+
+
+@media only screen and  (max-width: 1024px) {
+  .payment-container {
+    padding: 15px;
+  }
+
+  .payment-title {
+    font-size: 24px;
+  }
+
+  .payment-subtitle {
+    font-size: 16px;
+  }
+
+  .back-button,
+  .submit-button {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}

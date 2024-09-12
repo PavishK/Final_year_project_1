@@ -30,7 +30,7 @@ function Contact() {
    const IconsList=[
     {id:1,src:Icon1,name:"Chat for product",des:"Speak to our friendly team",link:"ceo@trainingtrains.com",action:"mailto:ceo@trainingtrains.com"},
     {id:2,src:Icon2,name:"Chat to support",des:"We're here to help.",link:"ceo@trainingtrains.com",action:"mailto:ceo@trainingtrains.com"},
-    {id:3,src:Icon3,name:"Visit us",des:"Visit our main branch.",link:"View on Google Maps",action:'https://maps.app.goo.gl/3sdWUmpFgnfLXrBm6'},
+    {id:3,src:Icon3,name:"Visit us",des:"Visit our main branch.",link:"View on Google Maps",action:'https://maps.app.goo.gl/jZQm9CANq8iKimpr5'},
     {id:4,src:Icon4,name:"Call us",des:"Mon-Fri from 9am to 9pm.",link:"+91 94988-60729",action:'tel:+919498860729'},
    ]
 
@@ -81,7 +81,7 @@ function Contact() {
       <button onClick={togglePopup} className='contact-bottom-container-ask-now'><p>Ask us <ChatBubbleOutlinedIcon style={{fontSize:"medium"}}/></p></button>
 
       {isPopupVisible && (
-        <PopupMessage message="This is a responsive popup!" onClose={togglePopup} />
+        <PopupMessage message="askus" onClose={togglePopup} />
       )}
 
       <h2>Ready to level op your business and skills?</h2>
