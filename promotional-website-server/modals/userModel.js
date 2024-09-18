@@ -15,7 +15,10 @@ const userModel = mongoose.Schema(
       type: String,
       requried: true,
     },
-  },
+    isadmin:Boolean,
+    phno:String,
+    address:String,
+    },
   {
     timeStamp: true,
   }
