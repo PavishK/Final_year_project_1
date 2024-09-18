@@ -23,8 +23,9 @@ const PopupMessage = ({ message,data, onClose }) => {
         <button className="close-button" onClick={onClose}>
           <CloseIcon />
         </button>
-        {visibility.askus && <AskUs />}
-        {visibility.coursebook && <CourseEnrollment courseName={data.name} courseCost={data.cost}/>}
+        {/* {visibility.askus && <AskUs />}
+        {visibility.coursebook && <CourseEnrollment data={data}/>} */}
+        <CourseEnrollment data={data}/>
       </div>
     </div>
   );

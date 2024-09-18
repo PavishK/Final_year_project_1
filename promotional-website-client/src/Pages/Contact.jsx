@@ -88,7 +88,7 @@ function Contact() {
       <p>Start your career now</p>
       </div>
       <div className="contact-btn-container">
-        <button className='contact-btn-container-btn' onClick={()=>navigate('/product')}>Product</button>
+        <button className='contact-btn-container-btn' onClick={()=>navigate('/service')}>Product</button>
         <button className='contact-btn-container-btn' onClick={()=>navigate('/course')}>Course</button>
       </div>
       

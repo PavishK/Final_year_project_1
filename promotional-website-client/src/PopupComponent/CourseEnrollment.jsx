@@ -4,27 +4,29 @@ import Toaster from '../Form/Toaster';
 import SuccessToaster from '../Form/SuccessToast';
 import PaymentOption from './PaymentOption';
 
-function CourseEnrollment({ courseName, courseCost }) {
+function CourseEnrollment({ data}) {
   const [nextBtn, setNextBtn] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phno: "",
-    chosenCourse: courseName,
+    chosenCourse: data.name,
   });
-  const [draftStatus, setDraftStatus] = useState({status:false,msg:""});
+  
+  const [draftStatus, setDraftStatus] = useState({ status: false, msg: "" });
   const [errorMessage, setErrorMessage] = useState({ show: false, msg: "" });
   const [toastKey, setToastKey] = useState(Date.now()); // Key to force re-render
 
-  // Load draft data when component mounts
+  
   useEffect(() => {
     const savedData = localStorage.getItem("EnrollementData");
     if (savedData) {
       const parsedData = JSON.parse(savedData);
+      parsedData.chosenCourse=data.name;
       setFormData(parsedData);
-      setDraftStatus({status:true,msg:"Data loaded from draft."});
+      setDraftStatus({ status: true, msg: "Data loaded from draft." });
       setToastKey(Date.now()); // Update key to force re-render of toast
-      setTimeout(() => setDraftStatus({status:false,msg:""}), 2000); // Hide toaster after 2 seconds
+      setTimeout(() => setDraftStatus({ status: false, msg: "" }), 2000); // Hide toaster after 2 seconds
     }
   }, []);
 
@@ -44,9 +46,9 @@ function CourseEnrollment({ courseName, courseCost }) {
 
   const SaveAsDraft = () => {
     localStorage.setItem("EnrollementData", JSON.stringify(formData));
-    setDraftStatus({status:true,msg:"Data saved as draft."});
+    setDraftStatus({ status: true, msg: "Data saved as draft." });
     setToastKey(Date.now()); // Update key to force re-render of toast
-    setTimeout(() => setDraftStatus({status:false,msg:""}), 2000); // Hide toaster after 2 seconds
+    setTimeout(() => setDraftStatus({ status: false, msg: "" }), 2000); // Hide toaster after 2 seconds
   };
 
   const requireData = (e) => {
@@ -64,12 +66,10 @@ function CourseEnrollment({ courseName, courseCost }) {
     } else if (!emailRegex.test(formData.email)) {
       setErrorMessage({ show: true, msg: "Invalid Email format." });
       setToastKey(Date.now()); // Update key to force re-render of error toast
-    } 
-    else if(!phoneRegex.test(formData.phno)){
+    } else if (!phoneRegex.test(formData.phno)) {
       setErrorMessage({ show: true, msg: "Invalid Phone Number format." });
       setToastKey(Date.now());
-    }
-    else {
+    } else {
       setErrorMessage({ show: false, msg: "" });
       handleSubmit(e); // Properly call handleSubmit
     }
@@ -127,10 +127,10 @@ function CourseEnrollment({ courseName, courseCost }) {
             </div>
           </form>
           {errorMessage.show && <Toaster key={toastKey} message={errorMessage.msg} />}
-          {draftStatus.status && <SuccessToaster key={toastKey} message={draftStatus.msg}/>}
+          {draftStatus.status && <SuccessToaster key={toastKey} message={draftStatus.msg} />}
         </div>
       ) : (
-        <PaymentOption handleBack={false}/>
+        <PaymentOption handleBack={() => setNextBtn(false)} data={data}/>
       )}
     </>
   );

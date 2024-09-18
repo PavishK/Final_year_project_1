@@ -98,3 +98,30 @@
     list-style-type:square;
     font-size: large;
   }
+
+  /*-----------------------------------------Instructors-------------------------------------*/
+
+  .instructors-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: justify;
+  }
+
+  .instructors-item{
+    width: 80%;
+    padding: 10px;
+  }
+
+  .instructors-content{
+    padding: 8px;
+    list-style-image: url('../images/list-tick.svg');
+  }
+
+  .instructors-content li h3{
+    padding: 8px;
+  }
+  .instructors-content  p{
+    padding-left: 10px;
+  }

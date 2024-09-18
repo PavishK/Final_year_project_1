@@ -18,7 +18,7 @@ function Course() {
     const fetchCourses = async () => {
       setIsLoading(true);
       try { 
-          const response = await axios.get('http://localhost:8080/courses');
+          const response = await axios.get('http://localhost:8080/courses/list-courses');
           setCourses(response.data);
           console.log(response.data);
           setErrorLoading(false); // Set error loading to false if data is fetched successfully

@@ -45,7 +45,7 @@ function CourseBook() {
     <div className="course-card-content">
         <h2 className="course-title">{Data}</h2>
         <p className="course-info">
-            Transform data into insights and boost your career with Python Data Science.
+            {location.state.desc}
         </p>
         <div className="course-rating">
             <span>⭐ 4.4 (?? ratings)</span>
@@ -62,14 +62,13 @@ function CourseBook() {
     <div className="coursemoredetails">
       <p className={isInfoSelected.item1?'course-details-selection-option':'coursemoredetailsoption '} onClick={()=>setInfoSelected({item1:true,item2:false,item3:false})}>What you will learn</p>
       <p className={isInfoSelected.item2?'course-details-selection-option':'coursemoredetailsoption '} onClick={()=>setInfoSelected({item1:false,item2:true,item3:false})}>Course content</p>
-      <p className={isInfoSelected.item3?'course-details-selection-option':'coursemoredetailsoption '} onClick={()=>setInfoSelected({item1:false,item2:false,item3:true})}>Instructors</p>
+      <p className={isInfoSelected.item3?'course-details-selection-option':'coursemoredetailsoption '} onClick={()=>setInfoSelected({item1:false,item2:false,item3:true})}>Trainer Profile</p>
      </div>
      <div className='hr-container'></div>
      <div className="list-content-container">
      <div className={isInfoSelected.item1?'list-content-container-item':'course-content-container'}><WWYLearn/></div>
      <div className={isInfoSelected.item2?'list-content-container-item':'course-content-container'}><CContent/></div>
      <div className={isInfoSelected.item3?'list-content-container-item':'course-content-container'}><Instructors/></div>
-
      </div>
 </div>
   {isPopupVisible && (
