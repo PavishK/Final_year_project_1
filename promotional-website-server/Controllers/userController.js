@@ -66,6 +66,64 @@ const registerController = expressAsyncHandler(async (req, res) => {
   }
 });
 
+const updateUserData=expressAsyncHandler(async(req,res)=>{
+  const id=req.params.id;
+  try{
+    const user=await UserModel.findById(id);
+    if(!user){
+      return res.status(404).json({message:"User Not Found"});
+    }
+    const data=req.body;
+    const updatedUser=await UserModel.findByIdAndUpdate(id, data, {new:true});
+    res.status(200).json({message:"Profile updated",data:updatedUser});
+  }
+  catch(err){
+    return res.status(500).json({message:err.message});
+  }
+})
+
+
+const findUserAndUpdate=expressAsyncHandler(async(req,res)=>{
+    const id=req.params.id;
+    try{
+      const user=await UserModel.findById(id);
+      if(!user){
+        return res.status(404).json({message:"User Not Found"});
+    }
+    res.json(user);
+  }
+  catch(err){
+    return res.status(500).json({message:err.message});
+  }
+});
+
+const updatePassword = expressAsyncHandler(async (req, res) => {
+  const { id } = req.params;
+  const { currentPassword, newPassword } = req.body;
+  console.log("Id -> ", id, " Password -> ", currentPassword, " New Password ->", newPassword);
+  try {
+    const user = await UserModel.findById(id);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found!" });
+    }
+
+    const isMatch = await user.matchPassword(currentPassword);
+
+    if (!isMatch) {
+      return res.status(400).json({ message: "Invalid current password!" });
+    }
+
+    user.password = newPassword;
+    await user.save();
+    console.log("Password updated!");
+    return res.status(200).json({ message: "Password updated", data: user });
+  } catch (err) {
+    return res.status(500).json({ message: err.message });
+  }
+});
+
+
 // const fetchAllUsersController = expressAsyncHandler(async (req, res) => {
 //   const keyword = req.query.search
 //     ? {
@@ -85,5 +143,8 @@ const registerController = expressAsyncHandler(async (req, res) => {
 module.exports = {
   loginController,
   registerController,
+  updateUserData,
+  findUserAndUpdate,
+  updatePassword,
   // fetchAllUsersController,
 };

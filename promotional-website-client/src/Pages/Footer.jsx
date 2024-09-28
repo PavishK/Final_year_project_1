@@ -3,8 +3,10 @@ import "./styledPage.css";
 import NorthIcon from '@mui/icons-material/North';
 import { IconButton } from "@mui/material";
 import Logo from '../assets/Main-Logo.png';
+import { useNavigate } from "react-router-dom";
 
 const Footer = () => {
+  const navigate=useNavigate(null);
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
@@ -23,10 +25,10 @@ const Footer = () => {
           <ul>
             <li>Mission</li>
             <li>Team</li>
-            <li>Newsletter</li>
+            <li>Branch</li>
           </ul>
         </div>
-        <div className="footer-column">
+        <div className="footer-column" onClick={()=>navigate("/contact")}>
           <h4>Support</h4>
           <ul>
             <li>Contact</li>
@@ -39,7 +41,7 @@ const Footer = () => {
           <ul>
             <li>Instagram</li>
             <li>LinkedIn</li>
-            <li>YouTube</li>
+            <li onClick={()=>window.open("https://www.youtube.com/channel/UCQqG42FmqeFYRlTrRbMljVw","_blank")}>YouTube</li>
           </ul>
         </div>
       </div>

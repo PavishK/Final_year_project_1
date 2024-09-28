@@ -18,6 +18,8 @@ const userModel = mongoose.Schema(
     isadmin:Boolean,
     phno:String,
     address:String,
+    location:String,
+    fullname:String,
     },
   {
     timeStamp: true,

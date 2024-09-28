@@ -10,6 +10,7 @@ import Service from './Pages/Service';
 import Contact from './Pages/Contact';
 import CourseBook from './Pages/CourseBook';
 import NetworkStatusComponent from './NetworkStatusComponent';
+import EditProfile from './Pages/EditProfile';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
         </Route>
         <Route path="/form" element={<Login />} />
         <Route path="/coursebook" element={<CourseBook />} />
+        <Route path='/edit-profile' element={<EditProfile/>}/>
       </Routes>
       {/* </NetworkStatusComponent> */}
     </div>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import logo from "../assets/Main-Logo.png";
 import { Backdrop, CircularProgress } from "@mui/material";
 import axios from "axios";
@@ -7,6 +7,11 @@ import Toaster from "./Toaster";
 import './formStyles.css'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Alert, IconButton, Snackbar } from "@mui/material";
+
+
+//Animation  
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 function Login() {
   const [showlogin, setShowLogin] = useState(true);
@@ -18,6 +23,16 @@ function Login() {
   const [signInStatus, setSignInStatus] = React.useState("");
 
   const navigate = useNavigate();
+
+  
+  useEffect(() => {
+    AOS.init({
+      once: true,
+      disable: "phone",
+      duration: 800,
+      easing: "ease-out-cubic",
+    });
+  }, []);
 
   function handleClose(event, reason) {
     navigate("/");
@@ -126,10 +141,10 @@ function Login() {
         data,
         config
       );
-      console.log(response);
+      console.log(response.data);
       setSignInStatus({ msg: "Success", key: Math.random() });
       navigate("/");
-      localStorage.setItem("userData", JSON.stringify(response));
+      localStorage.setItem("userData", JSON.stringify(response.data));
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -159,7 +174,7 @@ function Login() {
         <CircularProgress />
       </Backdrop>
 
-      <div className="login-container">
+      <div data-aos="zoom-in-up" className="login-container">
       <div className="close-form">
       <IconButton key="close" onClick={handleClose}>
           <ArrowBackIcon/>

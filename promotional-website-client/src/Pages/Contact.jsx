@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import Logo from '../assets/Main-Logo.png';
 import './styledPage.css';
 import Icon1 from '../assets/Icons/smileChat.png';
@@ -18,8 +18,20 @@ import { useNavigate } from 'react-router-dom';
 
 import PopupMessage from '../PopupComponent/PopupMessage';
 
+//Animation  
+import AOS from "aos";
+import "aos/dist/aos.css";
+
 function Contact() {
   const [isPopupVisible, setPopupVisible] = useState(false);
+  useEffect(() => {
+    AOS.init({
+      once: true,
+      disable: "phone",
+      duration: 800,
+      easing: "ease-out-cubic",
+    });
+  }, []);
 
   const togglePopup = () => {
     setPopupVisible(!isPopupVisible);
@@ -45,12 +57,12 @@ function Contact() {
 
   return (
     <>
-      <center><div className="whole-contact-container">
-      <img src={Logo} alt='Training Trains'/>
+      <center data-aos="fade-up"><div className="whole-contact-container">
+      <img  src={Logo} alt='Training Trains'/>
         <h1>Contact our friendly team</h1>
         <p>Let us know how we can help.</p>
       </div></center>
-      <div className="contact-section">
+      <div  data-aos="zoom-in"  className="contact-section">
       {IconsList.map((item,key)=>(
         <div className="contact-section-item" key={item.id}>
           <img src={item.src} alt='Image'/>
@@ -62,11 +74,11 @@ function Contact() {
         </div>
       ))}
       </div>
-     <center> <div className="whole-contact-container-list">
-        <h2>Frequently asked questions</h2>
+     <center > <div className="whole-contact-container-list">
+        <h2 data-aos="fade-up">Frequently asked questions</h2>
         {QuestionsList.map((data,key)=>(
 
-          <details key={key}>
+          <details data-aos="fade-down" key={key}>
         <summary>
         <div className='Contact-list-container'>
         <img src={data.src} alt={data.id}/>
@@ -77,21 +89,20 @@ function Contact() {
         </details>
         ))}
       </div>
-      <div className="contact-bottom-container">
-      <button onClick={togglePopup} className='contact-bottom-container-ask-now'><p>Ask us <ChatBubbleOutlinedIcon style={{fontSize:"medium"}}/></p></button>
+      <div data-aos="zoom-in-up" className="contact-bottom-container">
+      <button  onClick={togglePopup} className='contact-bottom-container-ask-now'><p>Ask us <ChatBubbleOutlinedIcon style={{fontSize:"medium"}}/></p></button>
 
       {isPopupVisible && (
         <PopupMessage message="askus" onClose={togglePopup} />
       )}
 
-      <h2>Ready to level op your business and skills?</h2>
-      <p>Start your career now</p>
+      <h2 data-aos="fade-up">Ready to level op your business and skills?</h2>
+      <p data-aos="fade-up">Start your career now</p>
       </div>
-      <div className="contact-btn-container">
-        <button className='contact-btn-container-btn' onClick={()=>navigate('/service')}>Product</button>
-        <button className='contact-btn-container-btn' onClick={()=>navigate('/course')}>Course</button>
+      <div  className="contact-btn-container">
+        <button data-aos="fade-right" className='contact-btn-container-btn' onClick={()=>navigate('/service')}>Product</button>
+        <button data-aos="fade-left" className='contact-btn-container-btn' onClick={()=>navigate('/course')}>Course</button>
       </div>
-      
       </center>
 
     </>

@@ -1,10 +1,14 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import Logo from '../images/development-sw.svg';
 import Image1 from '../images/service_img/Business_web.svg';
 import Image2 from '../images/service_img/Developer_activity.svg';
 import Image3 from '../images/service_img/Mobile-bro.svg';
 import Image4 from '../images/service_img/Mobile_development-bro.svg';
 import './styledPage.css';
+
+//Animation  
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const details = [
   {
@@ -50,34 +54,43 @@ const details = [
 ];
 
 function Service() {
+  
+  useEffect(() => {
+    AOS.init({
+      once: true,
+      disable: "phone",
+      duration: 800,
+      easing: "ease-out-cubic",
+    });
+  }, []);
   return (
     <div className="service-main-container">
       <header className="service-header">
-        <h1 className="service-title">OurCompany <br />Service!</h1>
-        <p className="service-description">
+        <h1 data-aos="fade-down-right" className="service-title">OurCompany <br />Service!</h1>
+        <p data-aos="fade-down-left" className="service-description">
           We are a full-service digital agency that builds immersive user experiences. Our team creates exceptional visualization and thought-out functionality.
         </p>
       </header>
       <center>
         <section className="service-branding-section">
           <div className="service-section-item">
-            <div className="service-left-container">
+            <div data-aos="fade-right" className="service-left-container">
               <h2>Web & App Development Done Differently</h2>
               <p>
                 What makes us unique in the development world is that we don't use WordPress, frameworks, or page builders. We meticulously write the code line by line. This gives us much more control over the design, and the website performs lightning fast because there's no bloated or messy code that slows it down.
               </p>
             </div>
           </div>
-          <div className="service-section-item">
+          <div data-aos="fade-left" className="service-section-item">
             <img src={Logo} alt="Services" />
           </div>
         </section>
       </center>
-      <center><div className="page-end-line"></div></center>
+      <center><div data-aos="fade-left" className="page-end-line"></div></center>
       {details.map((item) => (
-        <div className="service-item-container-main" key={item.id}>
+        <div  data-aos="zoom-in-down"  className="service-item-container-main" key={item.id}>
           <img className='service-image' src={item.image} alt={item.heading} />
-          <div className='service-description-container-item'>
+          <div  data-aos="zoom-in-up" className='service-description-container-item'>
             <h2 className='service-headings'>{item.heading}</h2>
             {Object.entries(item.content).map(([title, description], index) => (
               <details className='service-details' key={index}>
