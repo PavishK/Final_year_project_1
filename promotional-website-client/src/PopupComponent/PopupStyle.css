@@ -373,3 +373,22 @@
     margin-bottom: 10px;
   }
 }
+
+/*------------------------------------Payment Option--------------------------------------*/
+
+.qr-code-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+  padding: 10px;
+  border: 2px dashed #1976d2;
+  border-radius: 10px;
+  background-color: #f0f0f0;
+}
+
+.payment-status {
+  margin-top: 10px;
+  font-weight: bold;
+}
+

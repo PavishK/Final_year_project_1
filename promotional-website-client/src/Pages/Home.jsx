@@ -9,19 +9,22 @@ import { FaBars, FaTimes } from 'react-icons/fa';
 import EditIcon from '@mui/icons-material/Edit';
 import DoneIcon from '@mui/icons-material/Done';
 import Footer from './Footer';
-import { Backdrop, CircularProgress } from '@mui/material';
+import { Backdrop, CircularProgress, Dialog, DialogActions, DialogContent, Button } from '@mui/material';
 
-// Animation
+// Import Lottie Animation
+import LottieAnimation from './LottieAnimation'; // Your Lottie component
+
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
 function Home() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isLoading, setIsLoading] = useState(false); // Loading state
+  const [isLoading, setIsLoading] = useState(false); 
+  const [showLoginPopup, setShowLoginPopup] = useState(false); 
   const navigate = useNavigate();
   const navRef = useRef();
   const subMenuRef = useRef(null);
-  const location = useLocation(); // For detecting route changes
+  const location = useLocation(); 
 
   const userData = JSON.parse(localStorage.getItem('userData')) || {};
 
@@ -33,22 +36,20 @@ function Home() {
       easing: 'ease-out-cubic',
     });
 
-    // Check if the user is logged in based on localStorage data
     if (userData && (userData.status === 200 || userData.status === 201)) {
       setIsLoggedIn(true);
     }
   }, [userData]);
 
-  // Detect route changes to trigger loading
   useEffect(() => {
     const handleRouteChange = () => {
-      setIsLoading(true); // Start loading when route changes
+      setIsLoading(true); 
       setTimeout(() => {
-        setIsLoading(false); // Simulate loading completion
-      }, 1000); // Adjust time to match your loading time
+        setIsLoading(false); 
+      }, 1000); 
     };
 
-    handleRouteChange(); // Initial call on mount
+    handleRouteChange();
   }, [location]);
 
   const showNavbar = () => {
@@ -68,9 +69,39 @@ function Home() {
     navigate('/form');
   };
 
+  const handleCourseClick = (e) => {
+    e.preventDefault();
+    if (isLoggedIn) {
+      navigate('/course');
+    } else {
+      setShowLoginPopup(true); 
+    }
+  };
+
+  const handleProductServiceClick = (e) => {
+    e.preventDefault();
+    if (isLoggedIn) {
+      navigate('/service');
+    } else {
+      setShowLoginPopup(true);
+    }
+  };
+
+  const handleContactClick = (e) => {
+    e.preventDefault();
+    if (isLoggedIn) {
+      navigate('/contact');
+    } else {
+      setShowLoginPopup(true);
+    }
+  };
+
+  const closeLoginPopup = () => {
+    setShowLoginPopup(false);
+  };
+
   return (
     <>
-      {/* Loading Indicator */}
       <Backdrop sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }} open={isLoading}>
         <CircularProgress />
       </Backdrop>
@@ -85,20 +116,18 @@ function Home() {
           <NavLink to='/' className='page-link'>
             Home
           </NavLink>
-          <NavLink to='course' className='page-link'>
+          <NavLink to='/course' className='page-link' onClick={handleCourseClick}>
             Course
           </NavLink>
-          <NavLink to='service' className='page-link'>
+          <NavLink to='/service' className='page-link' onClick={handleProductServiceClick}>
             Product & Service
           </NavLink>
-          <NavLink to='contact' className='page-link'>
+          <NavLink to='/contact' className='page-link' onClick={handleContactClick}>
             Contact
           </NavLink>
           <button className='nav-btn nav-close-btn' onClick={showNavbar}>
             <FaTimes />
           </button>
-
-          {/* Conditional rendering for logged-in status */}
           {isLoggedIn ? (
             <div className='user-initial' onClick={toggleMenu}>
               {userData.data?.name?.charAt(0).toUpperCase()}
@@ -123,7 +152,7 @@ function Home() {
                 </div>
                 <div className='sub-menu-link'>
                   <DoneIcon />
-                  <p>Enrolled Courses</p>
+                  <p onClick={() => navigate("/enrolled-courses")}>Enrolled Courses</p>
                   <span>{'>'}</span>
                 </div>
                 <div className='sub-menu-link'>
@@ -155,7 +184,17 @@ function Home() {
       <div className='Outlet'>
         <Outlet />
       </div>
-      <Footer />
+
+      <Dialog open={showLoginPopup} onClose={closeLoginPopup}>
+        <DialogContent>
+          <LottieAnimation /> 
+          <h3 style={{ textAlign: 'center' }}>Please log in to view this page</h3>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => navigate('/form')}>Login</Button>
+          <Button onClick={closeLoginPopup}>Cancel</Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 }

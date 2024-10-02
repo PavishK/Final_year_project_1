@@ -17,6 +17,7 @@ import ChatBubbleOutlinedIcon from '@mui/icons-material/ChatBubbleOutlined';
 import { useNavigate } from 'react-router-dom';
 
 import PopupMessage from '../PopupComponent/PopupMessage';
+import Footer from './Footer';
 
 //Animation  
 import AOS from "aos";
@@ -62,7 +63,7 @@ function Contact() {
         <h1>Contact our friendly team</h1>
         <p>Let us know how we can help.</p>
       </div></center>
-      <div  data-aos="zoom-in"  className="contact-section">
+      <div    className="contact-section">
       {IconsList.map((item,key)=>(
         <div className="contact-section-item" key={item.id}>
           <img src={item.src} alt='Image'/>
@@ -89,22 +90,22 @@ function Contact() {
         </details>
         ))}
       </div>
-      <div data-aos="zoom-in-up" className="contact-bottom-container">
+      <div  className="contact-bottom-container">
       <button  onClick={togglePopup} className='contact-bottom-container-ask-now'><p>Ask us <ChatBubbleOutlinedIcon style={{fontSize:"medium"}}/></p></button>
 
       {isPopupVisible && (
         <PopupMessage message="askus" onClose={togglePopup} />
       )}
 
-      <h2 data-aos="fade-up">Ready to level op your business and skills?</h2>
-      <p data-aos="fade-up">Start your career now</p>
+      <h2  >Ready to level op your business and skills?</h2>
+      <p >Start your career now</p>
       </div>
       <div  className="contact-btn-container">
-        <button data-aos="fade-right" className='contact-btn-container-btn' onClick={()=>navigate('/service')}>Product</button>
-        <button data-aos="fade-left" className='contact-btn-container-btn' onClick={()=>navigate('/course')}>Course</button>
+        <button  className='contact-btn-container-btn' onClick={()=>navigate('/service')}>Product</button>
+        <button  className='contact-btn-container-btn' onClick={()=>navigate('/course')}>Course</button>
       </div>
       </center>
-
+      <Footer/>
     </>
   )
 }

@@ -1,31 +1,32 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import BGImage from '../images/AskUs.svg';
 import './PopupStyle.css';
 import SuccessToaster from '../Form/SuccessToast';
 
-
-const AskUs = () => {
+const AskUs = ({ onClose }) => {
   const [askDetails, setAskDetails] = useState({ question: '', desc: '', link: '' });
-  const [isDrafted,setIsDrafted]=useState(false);
-  const navigate=useNavigate();
+  const [isDrafted, setIsDrafted] = useState(false);
 
   const handleChange = (e) => {
     setAskDetails({ ...askDetails, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = (e) => {
-    // e.preventDefault();
-    // localStorage.setItem('askDetails', JSON.stringify(askDetails));
-    // console.log('Details saved to local storage:', askDetails);
+    e.preventDefault();
+    console.log('Ask us:', askDetails);
   };
 
   const handleAskLater = (e) => {
-    setIsDrafted(true);
     e.preventDefault();
+    setIsDrafted(true);
     localStorage.setItem('askDetails', JSON.stringify(askDetails));
     console.log('Details saved to local storage:', askDetails);
     setAskDetails(false);
+
+    // Call onClose to close the popup
+    if (onClose) {
+      onClose();
+    }
   };
 
   useEffect(() => {
@@ -77,7 +78,7 @@ const AskUs = () => {
         </form>
         <p className="ask-later-link" onClick={handleAskLater}>Ask later</p>
       </div>
-      {isDrafted?(<SuccessToaster key="201" message="Message saved in draft." />):null}
+      {isDrafted && <SuccessToaster key="201" message="Message saved in draft." />}
     </div>
   );
 };

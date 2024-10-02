@@ -4,28 +4,26 @@ import AskUs from './AskUs';
 import CourseEnrollment from './CourseEnrollment';
 import CloseIcon from '@mui/icons-material/Close';
 
-const PopupMessage = ({ message,data, onClose }) => {
-  const [visibility, setVisibility] = useState({ askus: false, coursebook: false });
+const PopupMessage = ({ message, data, onClose }) => {
+  const [visibleContent, setVisibleContent] = useState(null);
 
   useEffect(() => {
     if (message === "askus") {
-      setVisibility({ askus: true, coursebook: false });
+      setVisibleContent(<AskUs onClose={onClose} />);
     } else if (message === "coursebook") {
-      setVisibility({ askus: false, coursebook: true });
+      setVisibleContent(<CourseEnrollment data={data} onClose={onClose} />);
     } else {
-      setVisibility({ askus: false, coursebook: false });
+      setVisibleContent(null);
     }
-  }, [message]);
+  }, [message, onClose, data]);
 
   return (
     <div className="overlay" onClick={onClose}>
-      <div className="popup-container" onClick={e => e.stopPropagation()}>
+      <div className="popup-container" onClick={(e) => e.stopPropagation()}>
         <button className="close-button" onClick={onClose}>
           <CloseIcon />
         </button>
-        {/* {visibility.askus && <AskUs />}
-        {visibility.coursebook && <CourseEnrollment data={data}/>} */}
-        <CourseEnrollment data={data}/>
+        {visibleContent}
       </div>
     </div>
   );

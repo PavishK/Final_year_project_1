@@ -143,8 +143,8 @@ body{
 
 .sub-menu-wrap{
     position: absolute;
-    top: 12%;
-    left: 72%;
+    top: 10%;
+    left: 70%;
     width: 320px;
     max-height: 0;
     display: none;
@@ -410,6 +410,7 @@ body{
   align-items: center;
   text-align: center;
   margin-top: 50px;
+  height: 580px;
 }
 
 .error-container h2 {
@@ -1440,7 +1441,7 @@ body{
     font-size:22px;
   }
   
-  @media screen and (max-width: 768px) {
+  @media only screen and (max-width: 768px) {
     .profile-row {
       flex-direction: column;
     }
@@ -1455,3 +1456,83 @@ body{
     }
   }
   
+/*---------------------------------------Enroll Courses---------------------------------------*/
+
+.manage-enrolled-courses {
+  padding: 20px;
+  background-color: #f8f8f8;
+  margin: 20px 25px 20px 25px;
+  border-radius: 15px;
+}
+
+
+.manage-enrolled-course-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.manage-enrolled-courses .manage-enrolled-course-item {
+  background: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: 80px 1fr auto;
+  align-items: center;
+  gap: 20px;
+  box-shadow: 1px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.manage-enrolled-courses .manage-enrolled-course-item:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.manage-enrolled-courses .enrolled-course-image {
+  width: 60px;
+  height: 60px;
+  border-radius: 5px;
+  object-fit: cover; /* Ensures the image fits properly */
+}
+
+.manage-enrolled-courses .manage-enrolled-course-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.manage-enrolled-courses .manage-enrolled-course-details h3 {
+  font-size: 18px;
+  margin: 0;
+  color: #333;
+}
+
+.manage-enrolled-courses .manage-enrolled-course-details p {
+  margin: 5px 0;
+  font-size: 14px;
+  color: #666;
+}
+
+.manage-enrolled-courses .manage-enrolled-continue-btn {
+  padding: 12px;
+  background: rgb(0, 180, 0);
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  width: 150px;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.manage-enrolled-courses .manage-enrolled-continue-btn:hover {
+  background: rgb(0, 198, 0);
+}
+
+@media only screen and  (max-width: 1024px) {
+  .manage-enrolled-courses .manage-enrolled-course-item {
+   display: flex !important;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+  }
+}

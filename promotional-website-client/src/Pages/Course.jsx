@@ -74,8 +74,9 @@ function Course() {
                   {!course.available ? (
                     <p className='enrolled-item'>Available</p>
                   ) : (
-                    <p className='enrolled-item-notAvailable'>NotAvailable</p>
+                    <p className='enrolled-item-notAvailabel'>NotAvailable</p>
                   )}
+                 &nbsp;&nbsp;&nbsp;&nbsp;
                   {!course.available ? (
                     <button onClick={() => SelectCourse(course)}>Enroll Now <NorthEastIcon sx={{ fontSize: 'medium' }} /></button>
                   ) : (
@@ -87,6 +88,7 @@ function Course() {
            
           ))}
         </div>
+
         </>
       ) : (
         <center><div className="error-container">
@@ -94,6 +96,7 @@ function Course() {
           <Toaster key="201" message="Unable to load courses. Server Error" />
         </div></center>
       )}
+      {!isLoading?(<Footer/>):null}
     </>
   );
 }

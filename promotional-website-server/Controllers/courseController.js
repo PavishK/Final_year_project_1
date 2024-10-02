@@ -22,6 +22,7 @@ const displayCourse=expressAsyncHandler(async (req, res) => {
     }
 });
 
+
 module.exports={
     addCourse,
     displayCourse

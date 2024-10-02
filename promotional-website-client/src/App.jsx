@@ -11,6 +11,7 @@ import Contact from './Pages/Contact';
 import CourseBook from './Pages/CourseBook';
 import NetworkStatusComponent from './NetworkStatusComponent';
 import EditProfile from './Pages/EditProfile';
+import EnrolledCourses from './Pages/EnrolledCourses';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
         <Route path="/form" element={<Login />} />
         <Route path="/coursebook" element={<CourseBook />} />
         <Route path='/edit-profile' element={<EditProfile/>}/>
+        <Route path='/enrolled-courses' element={<EnrolledCourses/>}/>
       </Routes>
       {/* </NetworkStatusComponent> */}
     </div>

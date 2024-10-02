@@ -4,6 +4,7 @@ import TrainingLogo from '../images/WelcomePageImg.png';
 import { useNavigate } from 'react-router-dom';
 import Page2Image from '../images/home-page-20img.svg';
 import Page3Image from '../images/welcome-page-3-img.svg';
+import Footer from './Footer';
 
 //Animation  
 import AOS from "aos";
@@ -65,7 +66,8 @@ function Welcome() {
         <div data-aos="fade-left" className="welcome-product-item2">
         <img src={Page3Image} alt='Product'/>
         </div>
-        </div>     
+        </div>  
+        <Footer/>   
     </>
   )
 }

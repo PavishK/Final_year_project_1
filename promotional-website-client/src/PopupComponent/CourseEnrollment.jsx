@@ -4,73 +4,73 @@ import Toaster from '../Form/Toaster';
 import SuccessToaster from '../Form/SuccessToast';
 import PaymentOption from './PaymentOption';
 
-function CourseEnrollment({ data}) {
+function CourseEnrollment({ data, onClose,image }) {
   const [nextBtn, setNextBtn] = useState(false);
+
+  // Make sure no fields are undefined; use '' as default
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phno: "",
-    chosenCourse: data.name,
+    name: '',
+    email: '',
+    phno: '',
+    chosenCourse: data?.name || '',  // Ensure chosenCourse is never undefined
   });
   
-  const [draftStatus, setDraftStatus] = useState({ status: false, msg: "" });
-  const [errorMessage, setErrorMessage] = useState({ show: false, msg: "" });
-  const [toastKey, setToastKey] = useState(Date.now()); // Key to force re-render
+  const [draftStatus, setDraftStatus] = useState({ status: false, msg: '' });
+  const [errorMessage, setErrorMessage] = useState({ show: false, msg: '' });
 
-  
   useEffect(() => {
-    const savedData = localStorage.getItem("EnrollementData");
+    const savedData = localStorage.getItem('userData');
     if (savedData) {
-      const parsedData = JSON.parse(savedData);
-      parsedData.chosenCourse=data.name;
-      setFormData(parsedData);
-      setDraftStatus({ status: true, msg: "Data loaded from draft." });
-      setToastKey(Date.now()); // Update key to force re-render of toast
-      setTimeout(() => setDraftStatus({ status: false, msg: "" }), 2000); // Hide toaster after 2 seconds
+      const parsedData = JSON.parse(savedData).data;
+      setFormData({
+        name: parsedData.fullname || '',  // Ensure no undefined values
+        email: parsedData.email || '',
+        phno: parsedData.phno || '',
+        chosenCourse: parsedData.chosenCourse || data?.name || '',  // Fallback to data.name
+      });
+      setDraftStatus({ status: true, msg: 'Data loaded from draft.' });
+      setTimeout(() => setDraftStatus({ status: false, msg: '' }), 2000); // Hide toaster after 2 seconds
     }
-  }, []);
+  }, [data]);
 
   const handleChange = (e) => {
     const { id, value } = e.target;
-    setFormData({
-      ...formData,
-      [id]: value,
-    });
+    setFormData((prevData) => ({ ...prevData, [id]: value }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Form Submitted:", formData);
-    setNextBtn(true);  // Set nextBtn to true to proceed to the next step
+    console.log('Form Submitted:', formData);
+    setNextBtn(true); // Set nextBtn to true to proceed to the next step
   };
 
-  const SaveAsDraft = () => {
-    localStorage.setItem("EnrollementData", JSON.stringify(formData));
-    setDraftStatus({ status: true, msg: "Data saved as draft." });
-    setToastKey(Date.now()); // Update key to force re-render of toast
-    setTimeout(() => setDraftStatus({ status: false, msg: "" }), 2000); // Hide toaster after 2 seconds
-  };
-
-  const requireData = (e) => {
-    e.preventDefault();
-    const regex = /^[a-zA-Z]+$/;
+  const validateForm = () => {
+    const regex = /^[a-zA-Z\s]+$/;
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     const phoneRegex = /^\d{10}$/;
 
     if (!formData.name || !formData.email || !formData.phno || !formData.chosenCourse) {
-      setErrorMessage({ show: true, msg: "Fill the requirements!" });
-      setToastKey(Date.now()); // Update key to force re-render of error toast
-    } else if (!regex.test(formData.name)) {
-      setErrorMessage({ show: true, msg: "Name contains only letters." });
-      setToastKey(Date.now()); // Update key to force re-render of error toast
-    } else if (!emailRegex.test(formData.email)) {
-      setErrorMessage({ show: true, msg: "Invalid Email format." });
-      setToastKey(Date.now()); // Update key to force re-render of error toast
-    } else if (!phoneRegex.test(formData.phno)) {
-      setErrorMessage({ show: true, msg: "Invalid Phone Number format." });
-      setToastKey(Date.now());
+      return "Fill the requirements!";
+    }
+    if (!regex.test(formData.name)) {
+      return "Name contains only letters.";
+    }
+    if (!emailRegex.test(formData.email)) {
+      return "Invalid Email format.";
+    }
+    if (!phoneRegex.test(formData.phno)) {
+      return "Invalid Phone Number format.";
+    }
+    return null;
+  };
+
+  const requireData = (e) => {
+    e.preventDefault();
+    const validationMessage = validateForm();
+    if (validationMessage) {
+      setErrorMessage({ show: true, msg: validationMessage });
     } else {
-      setErrorMessage({ show: false, msg: "" });
+      setErrorMessage({ show: false, msg: '' });
       handleSubmit(e); // Properly call handleSubmit
     }
   };
@@ -79,7 +79,7 @@ function CourseEnrollment({ data}) {
     <>
       {!nextBtn ? (
         <div className="courseenrollment-container">
-          <form className="courseenrollment-form">
+          <form className="courseenrollment-form" onSubmit={requireData}>
             <h2>Checkout</h2>
 
             <label className='label-course-item' htmlFor="name">Name</label>
@@ -122,15 +122,15 @@ function CourseEnrollment({ data}) {
             /><br />
 
             <div className="courseenrollment-buttons">
-              <button type="button" className="btn-dismiss" onClick={SaveAsDraft}>Save as Draft</button>
-              <button type="submit" onClick={requireData} className="btn-submit">Next</button>
+              <button type="button" className="btn-dismiss" onClick={onClose}>Cancel</button>
+              <button type="submit" className="btn-submit">Next</button>
             </div>
           </form>
-          {errorMessage.show && <Toaster key={toastKey} message={errorMessage.msg} />}
-          {draftStatus.status && <SuccessToaster key={toastKey} message={draftStatus.msg} />}
+          {errorMessage.show && <Toaster message={errorMessage.msg} />}
+          {draftStatus.status && <SuccessToaster message={draftStatus.msg} />}
         </div>
       ) : (
-        <PaymentOption handleBack={() => setNextBtn(false)} data={data}/>
+        <PaymentOption handleBack={() => setNextBtn(false)} data={data} />
       )}
     </>
   );

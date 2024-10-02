@@ -8,6 +8,7 @@ import CContent from '../CourseInfoComponents/CourseContent';
 import Instructors from '../CourseInfoComponents/Instructors';
 import { useLocation } from 'react-router-dom';
 import PopupMessage from '../PopupComponent/PopupMessage';
+import Footer from './Footer';
 
 const IconWithName = ({ icon: IconComponent, name }) => {
 
@@ -100,6 +101,8 @@ function CourseBook() {
      </div>
      <hr/>
      </center> */}
+
+     <Footer/>
   </>
    
   )

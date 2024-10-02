@@ -5,6 +5,7 @@ import Image2 from '../images/service_img/Developer_activity.svg';
 import Image3 from '../images/service_img/Mobile-bro.svg';
 import Image4 from '../images/service_img/Mobile_development-bro.svg';
 import './styledPage.css';
+import Footer from './Footer';
 
 //Animation  
 import AOS from "aos";
@@ -64,10 +65,11 @@ function Service() {
     });
   }, []);
   return (
+    <>
     <div className="service-main-container">
       <header className="service-header">
         <h1 data-aos="fade-down-right" className="service-title">OurCompany <br />Service!</h1>
-        <p data-aos="fade-down-left" className="service-description">
+        <p className="service-description">
           We are a full-service digital agency that builds immersive user experiences. Our team creates exceptional visualization and thought-out functionality.
         </p>
       </header>
@@ -102,6 +104,8 @@ function Service() {
         </div>
       ))}
     </div>
+    <Footer/>
+    </>
   );
 }
 
