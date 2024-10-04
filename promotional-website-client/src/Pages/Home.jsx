@@ -1,30 +1,28 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, useCallback } from 'react';
 import './styledPage.css';
 import Logo from '../assets/Main-Logo.png';
 import User from '../assets/student.svg';
 import { useNavigate, Outlet, NavLink, useLocation } from 'react-router-dom';
-import LoginIcon from '@mui/icons-material/Login';
-import LogoutIcon from '@mui/icons-material/Logout';
+import { Login as LoginIcon, Logout as LogoutIcon, Edit as EditIcon, Done as DoneIcon } from '@mui/icons-material';
 import { FaBars, FaTimes } from 'react-icons/fa';
-import EditIcon from '@mui/icons-material/Edit';
-import DoneIcon from '@mui/icons-material/Done';
-import Footer from './Footer';
-import { Backdrop, CircularProgress, Dialog, DialogActions, DialogContent, Button } from '@mui/material';
-
-// Import Lottie Animation
-import LottieAnimation from './LottieAnimation'; // Your Lottie component
-
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import { Backdrop, CircularProgress, Dialog, DialogActions, DialogContent, Button, useMediaQuery, useTheme } from '@mui/material';
+import LottieAnimation from './LottieAnimation'; // Lottie animation component
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
 function Home() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isLoading, setIsLoading] = useState(false); 
-  const [showLoginPopup, setShowLoginPopup] = useState(false); 
+  const [isLoading, setIsLoading] = useState(false);
+  const [showLoginPopup, setShowLoginPopup] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+
   const navigate = useNavigate();
   const navRef = useRef();
   const subMenuRef = useRef(null);
-  const location = useLocation(); 
+  const location = useLocation();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   const userData = JSON.parse(localStorage.getItem('userData')) || {};
 
@@ -38,67 +36,55 @@ function Home() {
 
     if (userData && (userData.status === 200 || userData.status === 201)) {
       setIsLoggedIn(true);
+      setIsAdmin(userData.data?.isadmin || false);
     }
   }, [userData]);
 
   useEffect(() => {
-    const handleRouteChange = () => {
-      setIsLoading(true); 
-      setTimeout(() => {
-        setIsLoading(false); 
-      }, 1000); 
-    };
+    const restrictedPaths = ['/course', '/service'];
+    if (restrictedPaths.includes(location.pathname) && !isLoggedIn) {
+      setShowLoginPopup(true);
+    }
 
-    handleRouteChange();
-  }, [location]);
+    setIsLoading(true);
+    const timeoutId = setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+    
+    return () => clearTimeout(timeoutId); // Cleanup the timeout on component unmount
+  }, [location.pathname, isLoggedIn]);
 
-  const showNavbar = () => {
-    navRef.current.classList.toggle('responsive_nav');
-  };
+  const showNavbar = useCallback(() => {
+    if (navRef.current) {
+      navRef.current.classList.toggle('responsive_nav');
+    }
+  }, []);
 
-  const toggleMenu = () => {
+  const toggleMenu = useCallback(() => {
     if (subMenuRef.current) {
       subMenuRef.current.classList.toggle('open-menu');
     }
-  };
+  }, []);
 
-  const LogoutHandler = (e) => {
-    e.stopPropagation();
-    localStorage.removeItem('userData');
-    setIsLoggedIn(false);
-    navigate('/form');
-  };
+  const handleLogout = useCallback(
+    (e) => {
+      e.stopPropagation();
+      localStorage.clear();
+      setIsLoggedIn(false);
+      navigate('/form');
+    },
+    [navigate]
+  );
 
-  const handleCourseClick = (e) => {
-    e.preventDefault();
-    if (isLoggedIn) {
-      navigate('/course');
-    } else {
-      setShowLoginPopup(true); 
-    }
-  };
-
-  const handleProductServiceClick = (e) => {
-    e.preventDefault();
-    if (isLoggedIn) {
-      navigate('/service');
-    } else {
-      setShowLoginPopup(true);
-    }
-  };
-
-  const handleContactClick = (e) => {
-    e.preventDefault();
-    if (isLoggedIn) {
-      navigate('/contact');
-    } else {
-      setShowLoginPopup(true);
-    }
-  };
-
-  const closeLoginPopup = () => {
+  const closeLoginPopup = useCallback(() => {
     setShowLoginPopup(false);
-  };
+    navigate('/');
+  }, [navigate]);
+
+  const onClose=(e)=>{
+    e.stopPropagation();
+    toggleMenu()
+  }
 
   return (
     <>
@@ -106,67 +92,67 @@ function Home() {
         <CircularProgress />
       </Backdrop>
 
-      <header className='hero'>
-        <div className='logo-container'>
-          <h3 className='logo-mindisplay'>TRAINING TRAINS</h3>
-          <img src={Logo} alt='Logo' className='home-logo' />
+      <header className="hero">
+        <div className="logo-container">
+          <h3 className="logo-mindisplay">TRAINING TRAINS</h3>
+          <img src={Logo} alt="Logo" className="home-logo" />
         </div>
 
-        <nav className='navbar' id='navcontainer' ref={navRef}>
-          <NavLink to='/' className='page-link'>
-            Home
-          </NavLink>
-          <NavLink to='/course' className='page-link' onClick={handleCourseClick}>
-            Course
-          </NavLink>
-          <NavLink to='/service' className='page-link' onClick={handleProductServiceClick}>
-            Product & Service
-          </NavLink>
-          <NavLink to='/contact' className='page-link' onClick={handleContactClick}>
-            Contact
-          </NavLink>
-          <button className='nav-btn nav-close-btn' onClick={showNavbar}>
+        <nav className="navbar" id="navcontainer" ref={navRef}>
+          <NavLink to="/" className="page-link">Home</NavLink>
+          <NavLink to="/course" className="page-link">Course</NavLink>
+          <NavLink to="/service" className="page-link">Product & Service</NavLink>
+          <NavLink to="/contact" className="page-link">Contact</NavLink>
+
+          <button className="nav-btn nav-close-btn" onClick={showNavbar}>
             <FaTimes />
           </button>
+
           {isLoggedIn ? (
-            <div className='user-initial' onClick={toggleMenu}>
+            <div className="user-initial" onClick={toggleMenu}>
               {userData.data?.name?.charAt(0).toUpperCase()}
             </div>
           ) : (
-            <img src={User} alt='User' className='home-user' onClick={toggleMenu} />
+            <img src={User} alt="User" className="home-user" onClick={toggleMenu} />
           )}
 
           {isLoggedIn ? (
-            <div className='sub-menu-wrap' id='subMenu' ref={subMenuRef}>
-              <div className='sub-menu'>
-                <div className='user-info'>
-                  <div className='user-initial'>{userData.data?.name?.charAt(0).toUpperCase()}</div>
-                  &nbsp;&nbsp;
-                  <h2>{userData.data.name}</h2>
+            <div className="sub-menu-wrap" id="subMenu" ref={subMenuRef} onClick={onClose}>
+              <div className="sub-menu">
+                <div className="user-info">
+                  <div className="user-initial">{userData.data?.name?.charAt(0).toUpperCase()}</div>
+                  <h2>&nbsp;{userData.data?.name}</h2>
                 </div>
                 <hr />
-                <div className='sub-menu-link'>
+                {isAdmin && (
+                  <div className="sub-menu-link" onClick={() => navigate('/admin')}>
+                    <DashboardIcon />
+                    <p>Dashboard</p>
+                    <span>{'>'}</span>
+                  </div>
+                )}
+                <div className="sub-menu-link" onClick={() => navigate('/edit-profile')}>
                   <EditIcon />
-                  <p onClick={() => navigate('/edit-profile')}>Edit Profile</p>
+                  <p>Edit Profile</p>
                   <span>{'>'}</span>
                 </div>
-                <div className='sub-menu-link'>
+                <div className="sub-menu-link" onClick={() => navigate('/enrolled-courses')}>
                   <DoneIcon />
-                  <p onClick={() => navigate("/enrolled-courses")}>Enrolled Courses</p>
+                  <p>Enrolled Courses</p>
                   <span>{'>'}</span>
                 </div>
-                <div className='sub-menu-link'>
+                <div className="sub-menu-link" onClick={handleLogout}>
                   <LogoutIcon />
-                  <p onClick={LogoutHandler}>Logout</p>
+                  <p>Logout</p>
                   <span>{'>'}</span>
                 </div>
               </div>
             </div>
           ) : (
-            <div className='sub-menu-wrap' id='subMenu' ref={subMenuRef}>
-              <div className='sub-menu'>
+            <div className="sub-menu-wrap" id="subMenu" ref={subMenuRef}>
+              <div className="sub-menu">
                 <hr />
-                <div className='sub-menu-link' onClick={() => navigate('/form')}>
+                <div className="sub-menu-link" onClick={() => navigate('/form')}>
                   <LoginIcon />
                   <p>Login</p>
                   <span>{'>'}</span>
@@ -176,23 +162,34 @@ function Home() {
           )}
         </nav>
 
-        <button className='nav-btn' onClick={showNavbar}>
+        <button className="nav-btn" onClick={showNavbar}>
           <FaBars />
         </button>
       </header>
 
-      <div className='Outlet'>
+      <div className="Outlet">
         <Outlet />
       </div>
 
-      <Dialog open={showLoginPopup} onClose={closeLoginPopup}>
+      <Dialog
+        open={showLoginPopup}
+        onClose={closeLoginPopup}
+        fullWidth
+        maxWidth={isMobile ? 'xs' : 'sm'}
+      >
         <DialogContent>
-          <LottieAnimation /> 
-          <h3 style={{ textAlign: 'center' }}>Please log in to view this page</h3>
+          <div style={{ textAlign: 'center' }}>
+            <LottieAnimation />
+            <h3>Please log in to view this page</h3>
+          </div>
         </DialogContent>
-        <DialogActions>
-          <Button onClick={() => navigate('/form')}>Login</Button>
-          <Button onClick={closeLoginPopup}>Cancel</Button>
+        <DialogActions style={{ justifyContent: 'center' }}>
+          <Button onClick={() => navigate('/form')} variant="contained" color="primary">
+            Login
+          </Button>
+          <Button onClick={closeLoginPopup} variant="outlined">
+            Cancel
+          </Button>
         </DialogActions>
       </Dialog>
     </>

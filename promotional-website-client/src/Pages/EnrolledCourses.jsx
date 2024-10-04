@@ -13,12 +13,12 @@ const ManageEnrolledCourses = () => {
   useEffect(() => {
     const fetchEnrolledCourses = async () => {
       try {
-        const id = JSON.parse(localStorage.getItem('enrolledCourses'))._id;
-        const res = await axios.get(`http://localhost:8080/courses/enrolled-courses/${id}`);
+        const username = JSON.parse(localStorage.getItem('userData')).data.name;
+        const res = await axios.get(`http://localhost:8080/courses/enrolled-courses/${username}`);
         setCourses(res.data); // Set course data
         setLoading(false); // Turn off loading
       } catch (err) {
-        console.error(err.response);
+        console.log(err.response);
         setLoading(false); // Turn off loading in case of error
       }
     };

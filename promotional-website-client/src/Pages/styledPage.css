@@ -196,10 +196,12 @@ body{
 .sub-menu-link p{
     width: 100%;
     cursor: pointer;
+    
 
 }
 
 .sub-menu-link span{
+    transition-duration: .5s;
     font-size: 22px;
 }
 .sub-menu-link:hover span{
@@ -632,7 +634,105 @@ body{
 .hr-container{
     width: 100%;
     border: 1px solid;
+    margin-bottom: 8px;
 }
+
+/*-----------------------------------Includes---------------------------------------*/
+
+.course-booke-include-description, .course-container-requirements, .course-booke-include .course-container{
+  margin: -13px 0 0 0;
+}
+
+
+.course-booke-include{
+  padding: 5px;
+  margin: 12px 0 0 0;
+}
+
+.course-booke-include h2{
+  font-weight: 700;
+}
+
+
+.course-booke-include .course-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 20px;
+  padding: 20px;
+}
+
+.course-booke-include .course-item {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 300px;
+  margin: 0px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 13px;
+  box-shadow: 1px 5px 8px rgba(0, 0, 0, 0.1);
+  transition-duration: .5s;
+}
+
+.course-booke-include .course-item:hover{
+  transform: scale(1.1);
+}
+
+.course-booke-include .course-item i {
+  font-size: 24px;
+  margin-right: 10px;
+  color: #333;
+}
+
+.course-booke-include .course-item p {
+  font-size: 18px;
+  text-align: left;
+  margin: 0;
+}
+.course-booke-include .course-container .course-item p .icon-with-img{
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-around;
+  column-gap: 10px;
+}
+
+.course-booke-include .course-container-requirements{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0px;
+}
+
+.course-booke-include-description{
+  text-align: justify;
+  padding: 10px;
+  font-size: 17px;
+}
+
+.course-booke-include .course-container-requirements ul li{
+    padding: 4px;
+    font-size: 18px;
+    text-align: justify;
+}
+
+@media only screen and (max-width: 1024px) {
+  .course-booke-include .course-container {
+    flex-direction: column;
+    align-items: center;
+    margin: -20px 0 0 0 !important;
+  }
+
+  .course-booke-include .course-item {  
+    align-items: center;
+  }
+
+  .course-booke-include .course-container-requirements ul li{
+    width: 100%;
+    text-align: left !important;
+  }
+}
+
 /*----------------------------------------------------------------------------------------*/
 
 .whole-course-deatils-container{
@@ -736,6 +836,7 @@ body{
 
 .list-content-container{
     padding: 4px;
+    margin-bottom: 12px;
 
 }
 .list-content-container-item{
@@ -1236,7 +1337,8 @@ body{
   .page-end-line{
     height: 4px;
     width: 30rem;
-    background-color: blue;
+    margin: 10px;
+    background-color: rgb(65, 65, 255);
     border-radius: 10%;
   }
 

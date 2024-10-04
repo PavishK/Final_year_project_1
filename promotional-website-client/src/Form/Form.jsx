@@ -21,6 +21,7 @@ function Login() {
 
   const [logInStatus, setLogInStatus] = React.useState("");
   const [signInStatus, setSignInStatus] = React.useState("");
+  const [isAdmin,setIsAdmin]=React.useState(false);
 
   const navigate = useNavigate();
 
@@ -46,124 +47,125 @@ function Login() {
   /* --------------------------------------------------------------------------- */
 
   const loginHandler = async (e) => {
-      if(data.name=="" || data.password==""){
+    if (data.name === "" || data.password === "") {
         setLogInStatus({
-          msg: "Need User name and Password",
-          key: Math.random(),
+            msg: "Need User name and Password",
+            key: Math.random(),
         });
-      }
-      else{
-    setLoading(true);
-    // console.log(data);
-    try {
-      const config = {
-        headers: {
-          "Content-type": "application/json",
-        },
-      };
+    } else {
+        setLoading(true);
+        try {
+            const config = {
+                headers: {
+                    "Content-type": "application/json",
+                },
+            };
 
-      const response = await axios.post(
-        "http://localhost:8080/user/login/",
-        data,
-        config
-      );
-      console.log("Login status : ", response);
-      setLogInStatus({ msg: "Success", key: Math.random() });
-      setLoading(false);
-   
-      localStorage.setItem("userData", JSON.stringify(response));
-      navigate("/");
-    } catch (error) {
-      setLogInStatus({
-        msg: "Invalid User name or Password",
-        key: Math.random(),
-      });
+            const response = await axios.post(
+                "http://localhost:8080/user/login/",
+                data,
+                config
+            );
+            console.log("Login status: ", response);
+            console.log(response.data.isadmin);
+            setIsAdmin(response.data.isadmin);
+            setLogInStatus({ msg: "Success", key: Math.random() });
+            localStorage.setItem("userData", JSON.stringify(response));
+
+            // Directly use response.data.isadmin for navigation
+                navigate("/");
+
+        } catch (error) {
+            setLogInStatus({
+                msg: "Invalid User name or Password",
+                key: Math.random(),
+            });
+        } finally {
+            setLoading(false);
+        }
     }
-    setLoading(false);
-  }
-  };
+};
+
 
   /*--------------------------------------------------------------------------------- */
 
   const signUpHandler = async () => {
-    const regex=/^[a-zA-Z].*\d$/;
+    const regex = /^[a-zA-Z].*\d$/;
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-    if(data.name=="" || data.email=="" || data.password=="" || confirmPass==""){
-      setSignInStatus({
-        msg: "Fill the form",
-        key: Math.random(),
-      });
-    }
-    else if(data.password.length<8 || data.password.length>15){
-      setSignInStatus({
-        msg: "Password length must be  8 to 15",
-        key: Math.random(),
-      });
-    }
-    else if(data.password!==confirmPass){
-      setSignInStatus({
-        msg: "Password not match, try again!",
-        key: Math.random(),
-      });
-    }
-    else if(!emailRegex.test(data.email)){
-      setSignInStatus({
-        msg: "Invalid E-mail format!",
-        key: Math.random(),
-      });
-    }
-   
-    else if(!regex.test(data.name)){
-      setSignInStatus({
-        msg: "Username must be letters followed by digits",
-        key: Math.random(),
-      });
-      if(data.name.length<15){
+    if (data.name === "" || data.email === "" || data.password === "" || confirmPass === "") {
         setSignInStatus({
-          msg: "Username lengtn must below 15",
-          key: Math.random(),
+            msg: "Fill the form",
+            key: Math.random(),
         });
-      }
-    }
+    } else if (data.password.length < 8 || data.password.length > 15) {
+        setSignInStatus({
+            msg: "Password length must be  8 to 15",
+            key: Math.random(),
+        });
+    } else if (data.password !== confirmPass) {
+        setSignInStatus({
+            msg: "Password not match, try again!",
+            key: Math.random(),
+        });
+    } else if (!emailRegex.test(data.email)) {
+        setSignInStatus({
+            msg: "Invalid E-mail format!",
+            key: Math.random(),
+        });
+    } else if (!regex.test(data.name)) {
+        setSignInStatus({
+            msg: "Username must be letters followed by digits",
+            key: Math.random(),
+        });
+        if (data.name.length < 15) {
+            setSignInStatus({
+                msg: "Username length must be below 15",
+                key: Math.random(),
+            });
+        }
+    } else {
+        setLoading(true);
+        try {
+            const config = {
+                headers: {
+                    "Content-type": "application/json",
+                },
+            };
 
-    else{
-    setLoading(true);
-    try {
-      const config = {
-        headers: {
-          "Content-type": "application/json",
-        },
-      };
+            const response = await axios.post(
+                "http://localhost:8080/user/register/",
+                data,
+                config
+            );
+            console.log(response.data);
+            console.log(response.data.isadmin);
+            setIsAdmin(response.data.isadmin);
+            setSignInStatus({ msg: "Success", key: Math.random() });
+            localStorage.setItem("userData", JSON.stringify(response));
 
-      const response = await axios.post(
-        "http://localhost:8080/user/register/",
-        data,
-        config
-      );
-      console.log(response.data);
-      setSignInStatus({ msg: "Success", key: Math.random() });
-      navigate("/");
-      localStorage.setItem("userData", JSON.stringify(response.data));
-      setLoading(false);
-    } catch (error) {
-      console.log(error);
-      if (error.response.status === 405) {
-        setSignInStatus({
-          msg: "E-mail ID already Exists, Please re-login",
-          key: Math.random(),
-        });
-      }
-      if (error.response.status === 406) {
-        setSignInStatus({
-          msg: "User Name already Taken, Please take another one",
-          key: Math.random(),
-        });
-      }
-      setLoading(false);
+            // Directly use response.data.isadmin for navigation
+                navigate("/");
+        } catch (error) {
+            console.log(error);
+            if (error.response.status === 405) {
+                setSignInStatus({
+                    msg: "E-mail ID already Exists, Please re-login",
+                    key: Math.random(),
+                });
+            }
+            if (error.response.status === 406) {
+                setSignInStatus({
+                    msg: "User Name already Taken, Please take another one",
+                    key: Math.random(),
+                });
+            }
+        } finally {
+            setLoading(false);
+        }
     }
-  }
-  };
+};
+
 
   /*-------------------------------------------------------------------------------------*/
 

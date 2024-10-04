@@ -58,8 +58,8 @@ function Contact() {
 
   return (
     <>
-      <center data-aos="fade-up"><div className="whole-contact-container">
-      <img  src={Logo} alt='Training Trains'/>
+      <center ><div className="whole-contact-container">
+      <img data-aos="fade-up"  src={Logo} alt='Training Trains'/>
         <h1>Contact our friendly team</h1>
         <p>Let us know how we can help.</p>
       </div></center>

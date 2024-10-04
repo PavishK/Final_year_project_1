@@ -21,11 +21,10 @@ const Footer = () => {
       </div>
       <div className="footer-links">
         <div className="footer-column">
-          <h4>About Us</h4>
+          <h4>Other platforms</h4>
           <ul>
-            <li>Mission</li>
-            <li>Team</li>
-            <li>Branch</li>
+            <li onClick={()=>window.open("https://domainhostly.com/","_blank")}>Domainhostly</li>
+            <li onClick={()=>window.open("https://w3developers.com.np/","_blank")}>W3developers</li>
           </ul>
         </div>
         <div className="footer-column" onClick={()=>navigate("/contact")}>
@@ -39,8 +38,8 @@ const Footer = () => {
         <div className="footer-column">
           <h4>Social</h4>
           <ul>
-            <li>Instagram</li>
-            <li>LinkedIn</li>
+            <li onClick={()=>window.open("https://www.instagram.com/training_trains/","_blank")}>Instagram</li>
+            <li onClick={()=>window.open("https://www.linkedin.com/company/traing-trains-software-technology-institute","_blank")}>LinkedIn</li>
             <li onClick={()=>window.open("https://www.youtube.com/channel/UCQqG42FmqeFYRlTrRbMljVw","_blank")}>YouTube</li>
           </ul>
         </div>
