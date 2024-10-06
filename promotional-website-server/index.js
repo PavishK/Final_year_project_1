@@ -35,6 +35,9 @@ app.use("/user", userRoutes);
 const courseRouter=require("./Routes/courseRouter");
 app.use("/courses",courseRouter);
 
+const adminRouter=require("./Routes/adminRouter");
+app.use("/admin",adminRouter);
+
 // Error Handling middlewares
 app.use(notFound);
 app.use(errorHandler);

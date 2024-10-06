@@ -1,16 +1,6 @@
 const Course=require("../modals/courseModel");
 const expressAsyncHandler = require("express-async-handler");
 
-const addCourse=expressAsyncHandler(async(req, res) => {
-    try {
-        const courses = req.body;
-        await Course.insertMany(courses);
-        res.status(200).send('Courses added successfully!');
-        console.log("Course Added successfully!");
-    } catch (error) {
-        res.status(500).send('Error adding courses');
-    }
-});
 
 const displayCourse=expressAsyncHandler(async (req, res) => {
     try {
@@ -24,6 +14,5 @@ const displayCourse=expressAsyncHandler(async (req, res) => {
 
 
 module.exports={
-    addCourse,
     displayCourse
 };

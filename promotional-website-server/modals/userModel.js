@@ -15,7 +15,10 @@ const userModel = mongoose.Schema(
       type: String,
       requried: true,
     },
-    isadmin:Boolean,
+    isadmin:{
+      type:Boolean,
+      default:false,
+    },
     phno:String,
     address:String,
     location:String,

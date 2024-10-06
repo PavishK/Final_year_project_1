@@ -42,7 +42,7 @@ const addEnrolledCourse = expressAsyncHandler(async (req, res) => {
 
 const displayEnrolledCourse = expressAsyncHandler(async (req, res) => {
   try {
-    const enrolled = await EnrolledCourses.findById(req.params.id);
+    const enrolled = await EnrolledCourses.findOne({name:req.params.name});
     if (!enrolled) {
       return res.status(404).json({ message: "Course not found" });
     }
