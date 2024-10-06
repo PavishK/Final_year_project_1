@@ -11,10 +11,10 @@
     "host": "vite --host"
   },
   "dependencies": {
-    "@emotion/react": "^11.13.0",
+    "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
     "@lottiefiles/react-lottie-player": "^3.5.4",
-    "@mui/icons-material": "^5.16.5",
+    "@mui/icons-material": "^5.16.7",
     "@mui/material": "^5.16.7",
     "@react-icons/all-files": "^4.1.0",
     "aos": "^2.3.4",
