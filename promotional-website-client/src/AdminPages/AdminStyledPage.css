@@ -55,6 +55,25 @@ h2 {
 .MuiIconButton-colorError:hover {
   color: #9a2121;
 }
+.enrolled-course-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.user-section {
+  margin-bottom: 2rem;
+}
+
+table {
+  width: 100%;
+}
+
+img {
+  display: block;
+  margin: 0 auto;
+}
+
 
 @media only screen and (max-width: 600px) {
   .manage-users-container {

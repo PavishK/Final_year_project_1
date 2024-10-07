@@ -6,6 +6,7 @@ import { useNavigate, Outlet, NavLink, useLocation } from 'react-router-dom';
 import { Login as LoginIcon, Logout as LogoutIcon, Edit as EditIcon, Done as DoneIcon } from '@mui/icons-material';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import DashboardIcon from '@mui/icons-material/Dashboard';
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import { Backdrop, CircularProgress, Dialog, DialogActions, DialogContent, Button, useMediaQuery, useTheme } from '@mui/material';
 import LottieAnimation from './LottieAnimation'; // Lottie animation component
 import AOS from 'aos';
@@ -126,8 +127,8 @@ function Home() {
                 <hr />
                 {isAdmin && (
                   <div className="sub-menu-link" onClick={() => navigate('/admin')}>
-                    <DashboardIcon />
-                    <p>Dashboard</p>
+                    <AdminPanelSettingsIcon />
+                    <p>Admin Panel</p>
                     <span>{'>'}</span>
                   </div>
                 )}

@@ -1,5 +1,5 @@
 const express = require("express");
-const {countUsersCoursesAndEnrolled,allUsersData,findIdAndUpdatePassword, deleteUserById, findCourseAndUpdate, addCourse, deleteCourse}=require("../Controllers/AdminController");
+const {countUsersCoursesAndEnrolled,allUsersData,findIdAndUpdatePassword, deleteUserById, findCourseAndUpdate, addCourse, deleteCourse, fetchAllEnrolledData}=require("../Controllers/AdminController");
 
 const Router = express.Router();
 
@@ -10,6 +10,8 @@ Router.delete("/delete-users/:id",deleteUserById);
 Router.put("/update-course/:id",findCourseAndUpdate);
 Router.post("/add-courses",addCourse);
 Router.delete("/delete-course/:id",deleteCourse);
+Router.get("/get-all-enrolled-data",fetchAllEnrolledData);
+
 
 
 module.exports = Router;

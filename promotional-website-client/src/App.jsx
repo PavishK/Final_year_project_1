@@ -18,6 +18,7 @@ import Dashboard from './AdminPages/Dashboard';
 import ManageCourses from './AdminPages/ManageCourses';
 import ManageUsers from './AdminPages/ManageUsers';
 import Admin from './AdminPages/Admin';
+import ManageEnrolledCourseData from './AdminPages/ManageEnrolledCourseData';
 
 function App() {
 
@@ -39,8 +40,9 @@ function App() {
         
         <Route path="/admin" element={<Admin />}>
           <Route index element={<Dashboard />} />
-          <Route path="manageuser" element={<ManageUsers />} />
-          <Route path="managecourses" element={<ManageCourses />} />
+          <Route path="manage-user" element={<ManageUsers />} />
+          <Route path="manage-courses" element={<ManageCourses />} />
+          <Route path="manage-enrolled-courses" element={<ManageEnrolledCourseData />} />
         </Route>
 
       </Routes>

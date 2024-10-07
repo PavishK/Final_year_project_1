@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import {
   Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper,
   Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, IconButton, Grid, MenuItem, Select, InputLabel, FormControl,
-  Divider
+  Divider, CircularProgress, Box
 } from "@mui/material";
 import { Delete, Edit } from "@mui/icons-material";
 import './AdminStyledPage.css';
@@ -18,9 +18,13 @@ const ManageUsers = () => {
   const [password, setPassword] = useState(""); 
   const [toastMessage, setToastMessage] = useState("");
   const [toastType, setToastType] = useState(""); // 'success' or 'error'
+  const [loading, setLoading] = useState(true); // Loading state
+
+  const userData = JSON.parse(localStorage.getItem('userData')).data._id;
 
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true); // Start loading
       try {
         const res = await axios.get("http://localhost:8080/admin/get-all-users-data");
         setUsers(res.data.data);
@@ -28,6 +32,8 @@ const ManageUsers = () => {
         setToastMessage("Error fetching users data.");
         setToastType("error");
         console.log(err.response);
+      } finally {
+        setLoading(false); // End loading
       }
     };
     fetchData();
@@ -48,6 +54,7 @@ const ManageUsers = () => {
   };
 
   const handleConfirmDelete = async () => {
+    setLoading(true); // Start loading
     try {
       await axios.delete(`http://localhost:8080/admin/delete-users/${selectedUser._id}`);
       setUsers(users.filter((user) => user._id !== selectedUser._id));
@@ -57,6 +64,7 @@ const ManageUsers = () => {
       console.log(err.response);
     } finally {
       setOpenDeleteDialog(false);
+      setLoading(false); // End loading
     }
   };
 
@@ -71,6 +79,7 @@ const ManageUsers = () => {
       password: password ? password : selectedUser.password,
     };
 
+    setLoading(true); // Start loading
     try {
       await axios.put(`http://localhost:8080/admin/update-users-data/${updatedUser._id}`, {
         name: updatedUser.name,
@@ -85,6 +94,7 @@ const ManageUsers = () => {
       console.log(err.response);
     } finally {
       setOpenEditDialog(false);
+      setLoading(false); // End loading
     }
   };
 
@@ -93,36 +103,48 @@ const ManageUsers = () => {
       <div className="manage-users-container">
         <h2>Manage Users</h2>
 
-        {/* Users Table */}
-        <TableContainer component={Paper} className="table-container">
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>Name</TableCell>
-                <TableCell>Email</TableCell>
-                <TableCell>Role</TableCell>
-                <TableCell>Actions</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {users.map((user) => (
-                <TableRow key={user._id} style={{ backgroundColor: user.isadmin ? 'rgba(144,238,144,0.3)' : 'transparent' }}>
-                  <TableCell>{user.name}</TableCell>
-                  <TableCell>{user.email}</TableCell>
-                  <TableCell>{user.isadmin ? "Admin" : "User"}</TableCell>
-                  <TableCell>
-                    <IconButton color="primary" onClick={() => handleEditClick(user)}>
-                      <Edit />
-                    </IconButton>
-                    <IconButton color="error" onClick={() => handleDeleteClick(user)}>
-                      <Delete />
-                    </IconButton>
-                  </TableCell>
+        {/* Loading Indicator */}
+        {loading ? (
+          <Box display="flex" justifyContent="center" alignItems="center" height="80vh">
+            <CircularProgress />
+          </Box>
+        ) : (
+          // Users Table
+          <TableContainer component={Paper} className="table-container">
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell>Name</TableCell>
+                  <TableCell>Email</TableCell>
+                  <TableCell>Role</TableCell>
+                  <TableCell>Actions</TableCell>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
+              </TableHead>
+              <TableBody>
+                {users.map((user) => (
+                  <TableRow key={user._id} style={{ backgroundColor: user.isadmin ? 'rgba(144,238,144,0.3)' : 'transparent' }}>
+                    <TableCell>{user.name}</TableCell>
+                    <TableCell>{user.email}</TableCell>
+                    <TableCell>{user.isadmin ? "Admin" : "User"}</TableCell>
+                    <TableCell>
+                      {/* Exclude logged-in user (userData) from editing/deleting their own profile */}
+                      {user._id !== userData && (
+                        <>
+                          <IconButton color="primary" onClick={() => handleEditClick(user)}>
+                            <Edit />
+                          </IconButton>
+                          <IconButton color="error" onClick={() => handleDeleteClick(user)}>
+                            <Delete />
+                          </IconButton>
+                        </>
+                      )}
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        )}
 
         {/* Delete Confirmation Dialog */}
         <Dialog

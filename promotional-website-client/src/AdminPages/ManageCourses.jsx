@@ -17,6 +17,7 @@ import {
   Box,
   Checkbox,
   FormControlLabel,
+  CircularProgress,
 } from "@mui/material";
 import { Add, Edit } from "@mui/icons-material";
 import axios from "axios";
@@ -30,17 +31,21 @@ const ManageCourses = () => {
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [toastMessage, setToastMessage] = useState("");
   const [toastOpen, setToastOpen] = useState(false);
+  const [loading, setLoading] = useState(true); // Loading state
 
   useEffect(() => {
     fetchCourses();
   }, []);
 
   const fetchCourses = async () => {
+    setLoading(true); // Start loading
     try {
       const res = await axios.get("http://localhost:8080/courses/list-courses");
       setCourses(res.data);
     } catch (error) {
       console.error("Error fetching courses:", error);
+    } finally {
+      setLoading(false); // Stop loading
     }
   };
 
@@ -77,7 +82,6 @@ const ManageCourses = () => {
     setSelectedCourse(null);
   };
 
-  // Function to add a new course
   const handleAddCourse = async (courseData) => {
     try {
       await axios.post("http://localhost:8080/admin/add-courses", courseData);
@@ -92,7 +96,6 @@ const ManageCourses = () => {
     }
   };
 
-  // Function to update an existing course
   const handleUpdateCourse = async (courseData) => {
     try {
       await axios.put(`http://localhost:8080/admin/update-course/${selectedCourse._id}`, courseData);
@@ -107,7 +110,6 @@ const ManageCourses = () => {
     }
   };
 
-  // Function to delete a course
   const handleDeleteCourse = async () => {
     if (selectedCourse) {
       try {
@@ -155,61 +157,68 @@ const ManageCourses = () => {
         </Toolbar>
       </AppBar>
 
-      {/* Course Cards - Vertical List View */}
-      <Grid container spacing={2} style={{ marginTop: 16 }}>
-        {courses.map((course) => (
-          <Grid item xs={12} sm={12} md={6} key={course._id}>
-            <Card className="course-card" style={{ boxShadow: "0 3px 10px rgba(0, 0, 0, 0.1)", marginBottom: 16 }}>
-              <Grid container>
-                {/* Image Section */}
-                <Grid item xs={12} md={4}>
-                  <img 
-                    src={course.coursesrc} 
-                    alt={course.name} 
-                    style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '4px 0 0 4px' }} 
-                  />
-                </Grid>
+      {/* Loading Indicator */}
+      {loading ? (
+        <Box display="flex" justifyContent="center" alignItems="center" height="80vh">
+          <CircularProgress />
+        </Box>
+      ) : (
+        // Course Cards - Vertical List View
+        <Grid container spacing={2} style={{ marginTop: 16 }}>
+          {courses.map((course) => (
+            <Grid item xs={12} sm={12} md={6} key={course._id}>
+              <Card className="course-card" style={{ boxShadow: "0 3px 10px rgba(0, 0, 0, 0.1)", marginBottom: 16 }}>
+                <Grid container>
+                  {/* Image Section */}
+                  <Grid item xs={12} md={4}>
+                    <img 
+                      src={course.coursesrc} 
+                      alt={course.name} 
+                      style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '4px 0 0 4px' }} 
+                    />
+                  </Grid>
 
-                {/* Content Section */}
-                <Grid item xs={12} md={8}>
-                  <CardContent style={{ padding: 16 }}>
-                    <Typography variant="h5" style={{ fontWeight: 500 }}>{course.name}</Typography>
-                    <Typography variant="body2" color="textSecondary" style={{ marginTop: 8 }}>
-                      {course.desc}
-                    </Typography>
-                    <Typography variant="h6" color="primary" style={{ marginTop: 8 }}>
-                      ₹{course.cost}
-                    </Typography>
-                    <Typography variant="body2" style={{ color: course.available ? "green" : "red", marginTop: 8 }}>
-                      {course.available ? "Available" : "Not Available"}
-                    </Typography>
-                    <Box display="flex" justifyContent="flex-end" marginTop={2}>
-                      <Button
-                        variant="outlined"
-                        color="primary"
-                        size="small"
-                        onClick={() => handleEditClick(course)}
-                        startIcon={<Edit />}
-                      >
-                        Edit
-                      </Button>
-                      <Button
-                        variant="outlined"
-                        color="error"
-                        size="small"
-                        onClick={() => handleDeleteClick(course)}
-                        style={{ marginLeft: 8 }}
-                      >
-                        Delete
-                      </Button>
-                    </Box>
-                  </CardContent>
+                  {/* Content Section */}
+                  <Grid item xs={12} md={8}>
+                    <CardContent style={{ padding: 16 }}>
+                      <Typography variant="h5" style={{ fontWeight: 500 }}>{course.name}</Typography>
+                      <Typography variant="body2" color="textSecondary" style={{ marginTop: 8 }}>
+                        {course.desc}
+                      </Typography>
+                      <Typography variant="h6" color="primary" style={{ marginTop: 8 }}>
+                        ₹{course.cost}
+                      </Typography>
+                      <Typography variant="body2" style={{ color: course.available ? "green" : "red", marginTop: 8 }}>
+                        {course.available ? "Available" : "Not Available"}
+                      </Typography>
+                      <Box display="flex" justifyContent="flex-end" marginTop={2}>
+                        <Button
+                          variant="outlined"
+                          color="primary"
+                          size="small"
+                          onClick={() => handleEditClick(course)}
+                          startIcon={<Edit />}
+                        >
+                          Edit
+                        </Button>
+                        <Button
+                          variant="outlined"
+                          color="error"
+                          size="small"
+                          onClick={() => handleDeleteClick(course)}
+                          style={{ marginLeft: 8 }}
+                        >
+                          Delete
+                        </Button>
+                      </Box>
+                    </CardContent>
+                  </Grid>
                 </Grid>
-              </Grid>
-            </Card>
-          </Grid>
-        ))}
-      </Grid>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
+      )}
 
       {/* Add/Edit Course Dialog */}
       <Dialog open={openDialog} onClose={handleDialogClose} maxWidth="sm" fullWidth>

@@ -119,7 +119,20 @@ const deleteCourse=expressAsyncHandler(async(req,res)=>{
     }catch(err){
                 res.status(500).json({message:err.message});
     }
-})
+});
+
+const fetchAllEnrolledData=expressAsyncHandler(async(req,res)=>{
+    console.log("Enrolled Data fetched by ADMIN");
+    try{
+        const enrolledData=await EnrolledCourses.find();
+        if(!enrolledData){
+            return res.status(404).json({message:"No enrolled data found"});
+            }
+            return res.status(200).json({message:"Enrolled data fetched!",data:enrolledData});
+    }catch(err){
+        res.status(500).json({message:err.message});
+    }
+});
 
 
 module.exports={
@@ -129,5 +142,6 @@ module.exports={
     deleteUserById,
     findCourseAndUpdate,
     addCourse,
-    deleteCourse
+    deleteCourse,
+    fetchAllEnrolledData
 };

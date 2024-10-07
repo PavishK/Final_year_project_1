@@ -18,6 +18,7 @@ import Typography from '@mui/material/Typography';
 import Toolbar from '@mui/material/Toolbar';
 import AppBar from '@mui/material/AppBar';
 import CssBaseline from '@mui/material/CssBaseline';
+import CheckIcon from '@mui/icons-material/Check';
 import Avatar from '@mui/material/Avatar'; // For profile picture
 import './AdminStyledPage.css'; // Import custom CSS
 
@@ -93,7 +94,7 @@ const Admin = () => {
           </ListItemButton>
         </ListItem>
         <ListItem disablePadding>
-          <ListItemButton component={Link} to="manageuser">
+          <ListItemButton component={Link} to="manage-user">
             <ListItemIcon sx={{ color: 'white' }}>
               <PersonIcon />
             </ListItemIcon>
@@ -101,11 +102,19 @@ const Admin = () => {
           </ListItemButton>
         </ListItem>
         <ListItem disablePadding>
-          <ListItemButton component={Link} to="managecourses">
+          <ListItemButton component={Link} to="manage-courses">
             <ListItemIcon sx={{ color: 'white' }}>
               <WorkspacePremiumIcon />
             </ListItemIcon>
             <ListItemText primary={"Manage Courses"} />
+          </ListItemButton>
+        </ListItem>
+        <ListItem disablePadding>
+          <ListItemButton component={Link} to="manage-enrolled-courses">
+            <ListItemIcon sx={{ color: 'white' }}>
+              <CheckIcon />
+            </ListItemIcon>
+            <ListItemText primary={"Enrolled Courses"} />
           </ListItemButton>
         </ListItem>
       </List>
