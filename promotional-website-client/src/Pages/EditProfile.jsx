@@ -258,7 +258,7 @@ const EditProfile = () => {
           <Toaster message={toastMessage} />
         )
       )}
-      <UpdatePassword/>
+      <UpdatePassword id={id}/>
       </div>
     </>
   );

@@ -44,7 +44,7 @@ const displayEnrolledCourse = expressAsyncHandler(async (req, res) => {
   try {
     const enrolled = await EnrolledCourses.findOne({name:req.params.name});
     if (!enrolled) {
-      return res.status(404).json({ message: "Course not found" });
+      return res.status(201).json({ message: "Course not found" });
     }
     return res.status(200).json(enrolled);
   } catch (error) {

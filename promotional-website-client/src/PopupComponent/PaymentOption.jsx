@@ -83,6 +83,16 @@ export default function PaymentOption({ handleBack, data }) {
     setLoading(false); // Hide loading spinner after operation
   };
 
+  const courseIncrementCount=async(courseId)=>{
+    try{
+      const res=await axios.put(`http://localhost:8080/courses/enrolled-course-count-increment/${courseId}`);
+      console.log(res.data);
+    }
+    catch(err){
+      console.log(err.response);    
+    }
+  }
+
   const saveEnrollment = async (paymentType, amount) => {
     const username = JSON.parse(localStorage.getItem('userData')).data.name;
     try {
@@ -93,6 +103,8 @@ export default function PaymentOption({ handleBack, data }) {
         coursecost: amount,
         paymenttype: paymentType,
       });
+
+      await courseIncrementCount(data._id);
     } catch (err) {
       console.error('Error enrolling:', err);
       setErrorMessage('Error occurred while saving enrollment.');

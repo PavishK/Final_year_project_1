@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import './styledPage.css';
 import NorthEastIcon from '@mui/icons-material/NorthEast';
-import CourseList from '../images/course_img/CourseList';
+import CourseList from '../images/course_img/CourseList'; // Ensure this path is correct
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Backdrop, CircularProgress } from '@mui/material';
-import Lottie from 'react-lottie'; 
-import animationData from '../assets/PaperPlain_Offline.json'; 
-import Toaster from '../Form/Toaster';
+import Lottie from 'react-lottie';
+import animationData from '../assets/PaperPlain_Offline.json'; // Ensure this path is correct
+import Toaster from '../Form/Toaster'; // Ensure this path is correct
 import DoneIcon from '@mui/icons-material/Done';
 import Footer from './Footer';
 
@@ -16,23 +16,25 @@ function Course() {
   const [enrolledCourses, setEnrolledCourses] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [errorLoading, setErrorLoading] = useState(false);
+  const [toastMessage, setToastMessage] = useState('');
   const navigate = useNavigate();
 
   // Fetch courses and enrolled courses
   useEffect(() => {
     const fetchCourses = async () => {
       setIsLoading(true);
+      setToastMessage(''); // Clear previous toast message
       try {
         const courseResponse = await axios.get('http://localhost:8080/courses/list-courses');
         setCourses(courseResponse.data);
 
         const username = JSON.parse(localStorage.getItem('userData')).data.name;
         const enrolledResponse = await axios.get(`http://localhost:8080/courses/enrolled-courses/${username}`);
-        setEnrolledCourses(enrolledResponse.data.coursename);
-
+        setEnrolledCourses(enrolledResponse.data.coursename || []);
         setErrorLoading(false);
       } catch (error) {
         setErrorLoading(true);
+        setToastMessage('Unable to load courses.'); // Set toast message on error
         console.error('Error fetching data:', error);
       } finally {
         setIsLoading(false);
@@ -64,12 +66,14 @@ function Course() {
         <CircularProgress />
       </Backdrop>
 
+      {toastMessage && <Toaster key="201" message={toastMessage} />} {/* Display toast message if exists */}
+
       {!errorLoading ? (
         <div className="course-container">
-          {courses.map((course, key) => (
-            <div className="course-item" key={key}>
+          {courses.map((course, index) => (
+            <div className="course-item" key={index}>
               <div className="courses">
-                <img src={CourseList[key] || course.src} alt={course.name} />
+                <img src={CourseList[index] || course.src} alt={course.name} />
               </div>
               <div className="courses">
                 <div className="right-item-container">
@@ -79,11 +83,15 @@ function Course() {
                 <p className="description-text">{course.desc}</p>
                 <div className="enroll-container">
                   <p className={course.available ? 'enrolled-item' : 'enrolled-item-notAvailable'}>
-                    {course.available ? 'Available' : 'Not Available'}
+                    {course.available ? 
+                    (<span><span className='enrolled-count'>{course.enrolledcount}</span>Enrolled</span>)
+                     : 'Not Available'}
                   </p>
                   &nbsp;&nbsp;&nbsp;&nbsp;
                   {enrolledCourses.includes(course.name) ? (
-                    <button disabled style={{backgroundColor:'green'}}>Enrolled&nbsp;<DoneIcon sx={{ fontSize: 'medium' }}/></button>
+                    <button disabled style={{ backgroundColor: 'green' }}>
+                      Enrolled&nbsp;<DoneIcon sx={{ fontSize: 'medium' }} />
+                    </button>
                   ) : course.available ? (
                     <button onClick={() => handleSelectCourse(course)}>
                       Enroll Now <NorthEastIcon sx={{ fontSize: 'medium' }} />
@@ -102,7 +110,6 @@ function Course() {
         <center>
           <div className="error-container">
             <Lottie options={defaultOptions} height={400} width={400} />
-            <Toaster key="201" message="Unable to load courses. Server Error" />
           </div>
         </center>
       )}

@@ -38,6 +38,9 @@ app.use("/courses",courseRouter);
 const adminRouter=require("./Routes/adminRouter");
 app.use("/admin",adminRouter);
 
+const mailRouter=require("./Routes/mailRouter");
+app.use("/send-mail",mailRouter);
+
 // Error Handling middlewares
 app.use(notFound);
 app.use(errorHandler);

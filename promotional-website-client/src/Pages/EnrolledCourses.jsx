@@ -44,20 +44,20 @@ const ManageEnrolledCourses = () => {
 
       <div className="manage-enrolled-course-list">
         {/* Check if courses exist and map over the arrays */}
-        {courses && courses.coursename.length > 0 ? (
+        {courses && courses.coursename && courses.coursename.length > 0 ? (
           courses.coursename.map((courseName, index) => (
             <div key={index} className="manage-enrolled-course-item">
-            <img
+              <img
                 src={courses.imgsrc && courses.imgsrc[index] ? courses.imgsrc[index] : "default.jpg"}  // Fallback to a default image
                 alt={courseName}
                 className="enrolled-course-image"
-            />
+              />
 
               <div className="manage-enrolled-course-details">
                 <h3>{courseName}</h3>
-                <p>Enrolled on: {courses.enrolledon[index]}</p>
-                <p>Course Cost: ₹{courses.coursecost[index]}</p>
-                <p>Payment Type: {courses.paymenttype[index]}</p>
+                <p>Enrolled on: {courses.enrolledon && courses.enrolledon[index]}</p>
+                <p>Course Cost: ₹{courses.coursecost && courses.coursecost[index]}</p>
+                <p>Payment Type: {courses.paymenttype && courses.paymenttype[index]}</p>
               </div>
               <button disabled className="manage-enrolled-continue-btn">Enrolled</button>
             </div>
