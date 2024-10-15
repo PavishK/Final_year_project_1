@@ -18,7 +18,7 @@ const sendEnrollmentEmail = (recipientEmail, courseName, paymentType, imageUrl) 
   const mailOptions = {
     from:`Enrollement Info ${process.env.EMAIL}`,
     to: recipientEmail,
-    subject: `🎉 Welcome to the Training Trains!`,
+    subject: `🎉 Welcome to Training Trains!`,
     html: `
       <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; color: #333; border: 1px solid #eaeaea;">
         <h1 style="text-align: center; color: #4CAF50;">Course Enrollment Confirmation 🎓</h1>
@@ -35,7 +35,7 @@ const sendEnrollmentEmail = (recipientEmail, courseName, paymentType, imageUrl) 
         </p>
         
         <div style="text-align: center; margin-top: 30px;">
-          <a href="https://example.com" style="background-color: #4CAF50; color: white; text-decoration: none; padding: 10px 20px; border-radius: 5px; font-size: 16px;">Visit Our Website</a>
+          <a href="http://localhost:5173/contact" style="background-color: #4CAF50; color: white; text-decoration: none; padding: 10px 20px; border-radius: 5px; font-size: 16px;">Visit Our Website</a>
         </div>
 
         <footer style="margin-top: 40px; text-align: center; font-size: 12px; color: #888;">

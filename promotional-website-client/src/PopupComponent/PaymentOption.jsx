@@ -95,6 +95,7 @@ export default function PaymentOption({ handleBack, data }) {
 
   const saveEnrollment = async (paymentType, amount) => {
     const username = JSON.parse(localStorage.getItem('userData')).data.name;
+    const userEmail = JSON.parse(localStorage.getItem('userData')).data.email;
     try {
       await axios.post("http://localhost:8080/courses/add-booked-course", {
         name: username,
@@ -105,6 +106,13 @@ export default function PaymentOption({ handleBack, data }) {
       });
 
       await courseIncrementCount(data._id);
+
+      await axios.post("http://localhost:8080/send-mail/send-enrollment-email", {
+        email: userEmail,
+        courseName: data?.name,
+        paymentType: paymentType,
+      });
+
     } catch (err) {
       console.error('Error enrolling:', err);
       setErrorMessage('Error occurred while saving enrollment.');
