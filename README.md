@@ -1,15 +1,17 @@
-# 🎓 Promotional Website for Software Training Center
+# 🎓 Promotional Website for Software Training Center  
+### 📘 Final Year Project – Year 3 | Semester 5
 
-A **full-stack MERN application** developed as a **Final Year Project**, designed to promote a software training center and manage courses, users, enrollments, and payments efficiently.
+A **full-stack MERN application** developed as my **Final Year Project (Semester 5, Year 3 – BSc Information Systems)**.  
+The project is designed to promote a software training center and efficiently manage **courses, users, enrollments, and payments**.
 
-The platform provides a **modern, responsive UI** for users and a **secure admin dashboard** for complete course and user management.
+The platform delivers a **modern, fully responsive user interface** and a **secure, role-based admin dashboard** for complete system control.
 
 ---
 
 ## 🌐 Project Overview
 
-This web application allows users to:
-- Explore the training center
+This web application enables users to:
+- Explore the software training center
 - View courses and services
 - Enroll in courses
 - Make payments (QR / Cash)
@@ -27,24 +29,24 @@ Admins can:
 
 ### 👤 User Module
 - Home, About, Services, Courses & Contact pages
-- Secure Login & Registration (JWT)
-- Course enrollment system
+- Secure Login & Registration using JWT
+- Course enrollment workflow
 - Payment options:
   - GPay (QR Code)
   - Cash
 - User dashboard
-- Edit profile
+- Profile management
 - View enrolled courses
 
 ### 🛠️ Admin Module
-- Admin Dashboard
+- Dedicated Admin Dashboard
 - Manage users
-- Add / update / delete courses
+- Add, update, and delete courses
 - View enrolled courses
-- Secure role-based access
+- Secure role-based access control
 
 ### 📧 Email Integration
-- Enrollment confirmation emails using **Nodemailer**
+- Automated enrollment confirmation emails using **Nodemailer**
 
 ---
 
@@ -122,7 +124,7 @@ Admins can:
 - JavaScript
 - HTML5
 - CSS3
-- Responsive Design
+- Responsive Web Design
 
 ### Backend
 - Node.js
@@ -145,53 +147,17 @@ Admins can:
 
 ```env
 PORT=8080
-
-# MongoDB
-# MONGO_URI=mongodb+srv://<username>:<password>@cluster0.mongodb.net/
 MONGO_URI=mongodb://localhost:27017/promotional-website
-
-# JWT
 JWT_SECRET=zerotwo
-
-# Email (Nodemailer)
 EMAIL=coursebookinmanager@gmail.com
 EMAIL_PASSWORD=your_app_password
 ````
 
-> ⚠️ **Important:**
-> Never commit `.env` files to GitHub.
-> Always use environment variables for sensitive data.
+> ⚠️ **Important:** Never commit `.env` files to GitHub.
 
 ### 📁 Client
 
-* No `.env` required for client
-
----
-
-## 📦 Installation & Run
-
-### Prerequisites
-
-* Node.js
-* MongoDB (Local or Atlas)
-* Git
-
-### Steps
-
-```bash
-# Clone repository
-git clone https://github.com/PavishK/Final_year_project_1.git
-
-# Backend setup
-cd backend
-npm install
-npm start
-
-# Frontend setup
-cd ../frontend
-npm install
-npm run dev
-```
+* No `.env` required
 
 ---
 
@@ -210,16 +176,17 @@ Final_year_project_1/
 
 * Online payment gateway integration
 * Course progress tracking
-* Certificates generation
+* Certificate generation
 * Admin analytics dashboard
-* Deployment on cloud (AWS / Vercel)
+* Cloud deployment (AWS / Vercel)
 
 ---
 
 ## 👤 Author
 
 **Pavish K**
-BSc Information Systems – Final Year Project
+BSc Information Systems
+**Final Year Project – Year 3, Semester 5**
 GitHub: [https://github.com/PavishK](https://github.com/PavishK)
 
 ---
@@ -230,4 +197,4 @@ If you found this project useful, please **star ⭐ the repository**!
 
 ---
 
-> *Built with MERN Stack, Cloud Technologies & Passion 🚀*
+> *Built as a Final Year MERN Stack Project with Cloud Technologies 🚀*
